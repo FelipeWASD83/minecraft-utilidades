@@ -71,6 +71,7 @@ A mesa de trabalho fica salva no `localStorage` (chave `bancada.mesa`).
   Grotesk e IBM Plex Mono (Google Fonts). Cada página é um bloco claro só, entre topo e rodapé escuros.
 - Conferido em 3440×1440 (só por medida), 1080×1920, 1440×900, 1024×768 e 390 px (celular não era
   requisito, mas não tem rolagem lateral em nenhuma página).
-- Texturas e modelos são da Mojang. Uso pessoal; **antes de publicar na internet, decidir isso**
-  (o rodapé já avisa que é ferramenta de fã). Por isso o repositório do GitHub não deve ser público
-  sem ele pensar nisso: `img/itens.png` são texturas da Mojang.
+- Texturas e modelos são da Mojang. O repositório é **público desde 16/10/2026, por escolha dele**
+  (`github.com/FelipeWASD83/minecraft-utilidades`, MIT só para o código; o `LICENSE` ressalva os
+  materiais da Mojang, como `img/itens.png`). Site no ar na internet ainda não existe: decidir isso
+  antes (o rodapé já avisa que é ferramenta de fã).
