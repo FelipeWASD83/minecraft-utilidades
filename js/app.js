@@ -1,7 +1,9 @@
-// Bancada: tela. A lógica das receitas está em motor.js.
+// Bancada: página de crafts. A lógica das receitas está em motor.js.
 import { criarMotor, DESCRICAO_ESPECIAL } from "./motor.js";
-
-const COLUNAS_SPRITE = 40; // tem de bater com img/itens.png (ferramentas/renderizar_icones.py)
+import {
+  $, sem_acento, esc, base, carregarBase, nome, icHtml, pintaIc, montaTopo, ligaDica,
+  atualizaDicaAberta, esconderDica, mostraErro,
+} from "./comum.js";
 
 const CATEGORIAS = [
   ["todos", "Todos"],
@@ -15,19 +17,16 @@ const CATEGORIAS = [
 ];
 const NOME_CATEGORIA = Object.fromEntries(CATEGORIAS);
 
-const $ = (id) => document.getElementById(id);
-const sem_acento = (s) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+const NOME_ESTACAO = {
+  furnace: "Fornalha",
+  blast_furnace: "Alto-forno",
+  smoker: "Defumador",
+  campfire: "Fogueira",
+};
+const LIMITE_USADO = 60;
 
-async function carregar() {
-  const [dados, receitas] = await Promise.all([
-    fetch("dados/itens.json").then((r) => r.json()),
-    fetch("dados/receitas.json").then((r) => r.json()),
-  ]);
-  return { dados, receitas };
-}
-
-let dados, receitas, motor;
-const porId = new Map();
+let receitas, motor;
+const porId = base.porId;
 
 const estado = {
   mesa: Array(9).fill(null),
@@ -37,32 +36,15 @@ const estado = {
   soCraftaveis: false,
   texto: "",
   tick: 0,
+  usadoTodos: false,
 };
 
 const elItens = new Map(); // id -> botão na lista
 
-// ------------------------------------------------------------------ ícones
-function icStyle(id) {
-  const it = porId.get(id);
-  if (!it) return "";
-  return `--c:${it.ic % COLUNAS_SPRITE};--r:${Math.floor(it.ic / COLUNAS_SPRITE)}`;
-}
-const icHtml = (id) => `<i class="ic" style="${icStyle(id)}"></i>`;
-
-function pintaIc(el, id) {
-  const it = porId.get(id);
-  if (!it) return;
-  el.style.setProperty("--c", it.ic % COLUNAS_SPRITE);
-  el.style.setProperty("--r", Math.floor(it.ic / COLUNAS_SPRITE));
-}
-
-const nome = (id) => porId.get(id)?.pt ?? id;
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-
 // ------------------------------------------------------------------ lista de itens
 function montaLista() {
   const frag = document.createDocumentFragment();
-  for (const it of dados.itens) {
+  for (const it of base.dados.itens) {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "item";
@@ -102,7 +84,7 @@ function montaChips() {
 function aplicaFiltro() {
   const palavras = sem_acento(estado.texto.trim()).split(/\s+/).filter(Boolean);
   let n = 0;
-  for (const it of dados.itens) {
+  for (const it of base.dados.itens) {
     const ok =
       (estado.cat === "todos" || it.cat === estado.cat) &&
       (!estado.soCraftaveis || it.cr) &&
@@ -110,7 +92,8 @@ function aplicaFiltro() {
     elItens.get(it.id).hidden = !ok;
     if (ok) n++;
   }
-  $("contagem").textContent = n === dados.itens.length ? `${n} itens` : `${n} de ${dados.itens.length}`;
+  const total = base.dados.itens.length;
+  $("contagem").textContent = n === total ? `${n} itens` : `${n} de ${total}`;
   $("vazio").hidden = n !== 0;
   $("itens").hidden = n === 0;
 }
@@ -184,6 +167,8 @@ function renderResultado() {
   }
 }
 
+let ultimoPonteiro = null;
+
 function renderMao() {
   const mao = $("mao");
   const id = estado.mao;
@@ -205,9 +190,20 @@ function marcaSelecao() {
 function escolher(id) {
   estado.mao = id;
   estado.selecionado = id;
+  estado.usadoTodos = false;
   marcaSelecao();
   renderMao();
   renderReceitas();
+  mostraNaLista(elItens.get(id));
+}
+
+// rola só a lista (não a página) até o item ficar à vista
+function mostraNaLista(el) {
+  if (!el || el.hidden) return;
+  const cont = $("itens");
+  const c = cont.getBoundingClientRect(), r = el.getBoundingClientRect();
+  if (r.top < c.top) cont.scrollTop += r.top - c.top - 8;
+  else if (r.bottom > c.bottom) cont.scrollTop += r.bottom - c.bottom + 8;
 }
 
 function soltar() {
@@ -220,9 +216,7 @@ function colocar(i, id) {
   renderMesa();
 }
 
-function proximoLivre() {
-  return estado.mesa.findIndex((x) => !x);
-}
+const proximoLivre = () => estado.mesa.findIndex((x) => !x);
 
 function montarReceita(r) {
   const mesa = Array(9).fill(null);
@@ -253,25 +247,38 @@ function slotIng(ing) {
   return `<button type="button" class="slot alt" data-id="${id}" data-alts="${alts.join(",")}" data-tag="${tag}" aria-label="Qualquer um: ${esc(alts.slice(0, 6).map(nome).join(", "))}">${icHtml(id)}</button>`;
 }
 
+const fmtNum = (n) => String(Number(n.toFixed(2))).replace(".", ",");
+
 function cartaoHtml(r, idx, idAlvo) {
   let corpo, rotulo, desc = "", podeMontar = false;
-  const res = (id, n) => `<span class="slot res-mini" data-id="${id}">${icHtml(id)}${n > 1 ? `<span class="n">${n}</span>` : ""}</span>`;
+  const res = (id, n) => `<button type="button" class="slot res-mini" data-id="${id}" aria-label="${esc(nome(id))}">${icHtml(id)}${n > 1 ? `<span class="n">${n}</span>` : ""}</button>`;
+  const seta = `<span class="seta" aria-hidden="true">→</span>`;
   if (r.t === "shaped") {
     const w = r.g[0].length;
-    rotulo = `Com forma ${w}×${r.g.length}`;
+    rotulo = `Mesa de trabalho · com forma ${w}×${r.g.length}`;
     const cels = r.g.flat().map((ing) => (ing ? slotIng(ing) : `<span class="slot vazio"></span>`)).join("");
-    corpo = `<div class="mini-grade" style="--colunas:${w}">${cels}</div><span class="seta">→</span>${res(r.r, r.n)}`;
+    corpo = `<div class="mini-grade" style="--colunas:${w}">${cels}</div>${seta}${res(r.r, r.n)}`;
     podeMontar = true;
   } else if (r.t === "shapeless") {
-    rotulo = "Sem forma";
+    rotulo = "Mesa de trabalho · sem forma";
     const n = r.i.length;
     const cols = n <= 4 ? Math.min(n, 2) : 3;
-    corpo = `<div class="mini-grade" style="--colunas:${cols}">${r.i.map(slotIng).join("")}</div><span class="seta">→</span>${res(r.r, r.n)}`;
+    corpo = `<div class="mini-grade" style="--colunas:${cols}">${r.i.map(slotIng).join("")}</div>${seta}${res(r.r, r.n)}`;
     podeMontar = true;
+  } else if (r.t === "cozinhar") {
+    rotulo = `${NOME_ESTACAO[r.e]} · ${fmtNum(r.s)} s${r.x ? ` · ${fmtNum(r.x)} de XP` : ""}`;
+    corpo = `${slotIng(r.i)}<span class="seta" aria-hidden="true">+</span><button type="button" class="slot" data-id="${r.e}" aria-label="${NOME_ESTACAO[r.e]}">${icHtml(r.e)}</button>${seta}${res(r.r, r.n)}`;
+  } else if (r.t === "cortapedra") {
+    rotulo = "Cortapedra";
+    corpo = `${slotIng(r.i)}<span class="seta" aria-hidden="true">+</span><button type="button" class="slot" data-id="stonecutter" aria-label="Cortapedra">${icHtml("stonecutter")}</button>${seta}${res(r.r, r.n)}`;
+  } else if (r.t === "ferraria") {
+    rotulo = "Mesa de ferraria";
+    corpo = `<div class="mini-grade" style="--colunas:3">${slotIng(r.m)}${slotIng(r.b)}${slotIng(r.a)}</div>${seta}${res(r.r, r.n)}`;
+    desc = "Molde, peça e material, nessa ordem, na mesa de ferraria.";
   } else {
-    rotulo = "Receita especial";
+    rotulo = "Mesa de trabalho · receita especial";
     desc = DESCRICAO_ESPECIAL[r.k] ?? "";
-    corpo = `<span class="seta">→</span>${res(idAlvo, 1)}`;
+    corpo = `${seta}${res(idAlvo, 1)}`;
   }
   return `<article class="cartao">
     <div class="cartao-cab"><span class="rotulo">${rotulo}</span>${podeMontar ? `<button type="button" class="btn" data-montar="${idx}">Montar na mesa</button>` : ""}</div>
@@ -280,13 +287,23 @@ function cartaoHtml(r, idx, idAlvo) {
   </article>`;
 }
 
+function usadoHtml(id) {
+  const lista = motor.usadoEm(id);
+  if (!lista.length) return "";
+  const mostrar = estado.usadoTodos ? lista : lista.slice(0, LIMITE_USADO);
+  const slots = mostrar.map((x) => `<button type="button" class="slot" data-id="${x}" aria-label="${esc(nome(x))}">${icHtml(x)}</button>`).join("");
+  const mais = lista.length > LIMITE_USADO
+    ? `<button type="button" class="btn" data-usado-todos="1">${estado.usadoTodos ? "Mostrar menos" : `Mostrar os ${lista.length}`}</button>` : "";
+  return `<section class="usado"><div class="cartao-cab"><span class="rotulo">Usado em ${lista.length} ${lista.length === 1 ? "receita" : "receitas"}</span>${mais}</div><div class="usado-grade">${slots}</div></section>`;
+}
+
 function renderReceitas() {
   const corpo = $("rec-corpo");
   const id = estado.selecionado;
   cartoes = [];
   if (!id) {
     $("rec-contagem").textContent = "";
-    corpo.innerHTML = `<p class="rec-intro">Escolha um item na lista para ver como ele é feito. Os ingredientes também são clicáveis: dá para ir descendo até o material bruto.</p>`;
+    corpo.innerHTML = `<p class="rec-intro">Escolha um item na lista para ver como ele é feito e onde ele é usado. Os ingredientes também são clicáveis: dá para ir descendo até o material bruto.</p>`;
     return;
   }
   const it = porId.get(id);
@@ -295,13 +312,13 @@ function renderReceitas() {
   cartoes = lista;
   const cartoesHtml = lista.length
     ? lista.map((r, k) => cartaoHtml(r, k, id)).join("")
-    : `<p class="sem-receita">${esc(it.pt)} não sai da mesa de trabalho. Pode vir da fornalha, do cortapedra, da bancada de ferraria, de um baú ou do próprio mundo.</p>`;
+    : `<p class="sem-receita">${esc(it.pt)} não tem receita de fabricação. Vem do mundo: mineração, loot de baú, drop de mob, pesca ou troca com aldeão.</p>`;
   corpo.innerHTML = `<div class="ficha">
       <span class="slot" data-id="${id}">${icHtml(id)}</span>
       <div><h3>${esc(it.pt)}</h3>
         <p class="sub">${esc(it.en)}</p>
         <p class="rotulo id">${esc(NOME_CATEGORIA[it.cat])} · ${esc(it.id)}</p></div>
-    </div>${cartoesHtml}`;
+    </div>${cartoesHtml}${usadoHtml(id)}`;
 }
 
 // os ingredientes com várias opções trocam de item a cada segundo, como na receita do jogo
@@ -316,44 +333,7 @@ function giraAlternativas() {
   atualizaDicaAberta();
 }
 
-// ------------------------------------------------------------------ dica flutuante
-let dicaEl = null;
-function dicaPara(el) {
-  const id = el.dataset.id;
-  if (!id) return null;
-  const alts = el.dataset.alts?.split(",");
-  if (alts) {
-    const tag = el.dataset.tag;
-    const titulo = (tag && dados.nomesTag[tag]) || "Qualquer um destes";
-    return { t: titulo, s: `agora: ${nome(id)}` };
-  }
-  const it = porId.get(id);
-  return { t: it?.pt ?? id, s: it && it.en !== it.pt ? `${it.en} · ${id}` : id };
-}
-
-function mostraDica(el, x, y) {
-  const d = dicaPara(el);
-  if (!d) return esconderDica();
-  $("dica-t").textContent = d.t;
-  $("dica-s").textContent = d.s;
-  const box = $("dica");
-  box.hidden = false;
-  const w = box.offsetWidth, h = box.offsetHeight;
-  box.style.left = Math.min(x + 16, innerWidth - w - 8) + "px";
-  box.style.top = (y + 20 + h > innerHeight ? y - h - 12 : y + 20) + "px";
-  dicaEl = el;
-}
-function esconderDica() { $("dica").hidden = true; dicaEl = null; }
-function atualizaDicaAberta() {
-  if (dicaEl && !$("dica").hidden) {
-    const d = dicaPara(dicaEl);
-    if (d) { $("dica-t").textContent = d.t; $("dica-s").textContent = d.s; }
-  }
-}
-
 // ------------------------------------------------------------------ eventos
-let ultimoPonteiro = null;
-
 function ligaEventos() {
   document.addEventListener("pointermove", (e) => {
     ultimoPonteiro = { x: e.clientX, y: e.clientY };
@@ -363,14 +343,6 @@ function ligaEventos() {
       fan.style.transform = `translate(${e.clientX + 6}px, ${e.clientY + 6}px)`;
     }
   });
-  document.addEventListener("mouseover", (e) => {
-    const el = e.target.closest("[data-id]");
-    if (el && !el.classList.contains("alvo-dnd")) mostraDica(el, e.clientX, e.clientY);
-    else esconderDica();
-  });
-  document.addEventListener("mousemove", (e) => { if (!$("dica").hidden && dicaEl) mostraDica(dicaEl, e.clientX, e.clientY); });
-  document.addEventListener("mouseleave", esconderDica);
-  document.addEventListener("scroll", esconderDica, true);
 
   $("itens").addEventListener("click", (e) => {
     const b = e.target.closest(".item");
@@ -380,6 +352,7 @@ function ligaEventos() {
       const i = proximoLivre();
       if (i >= 0) colocar(i, id);
       estado.selecionado = id;
+      estado.usadoTodos = false;
       marcaSelecao();
       renderReceitas();
     } else {
@@ -412,6 +385,11 @@ function ligaEventos() {
   $("rec-corpo").addEventListener("click", (e) => {
     const m = e.target.closest("[data-montar]");
     if (m) { montarReceita(cartoes[Number(m.dataset.montar)]); return; }
+    if (e.target.closest("[data-usado-todos]")) {
+      estado.usadoTodos = !estado.usadoTodos;
+      renderReceitas();
+      return;
+    }
     const s = e.target.closest("button.slot[data-id]");
     if (s) escolher(s.dataset.id);
   });
@@ -477,17 +455,11 @@ function ligaEventos() {
 
 // ------------------------------------------------------------------ início
 async function iniciar() {
-  ({ dados, receitas } = await carregar());
-  motor = criarMotor(dados, receitas);
-  dados.itens.forEach((it, i) => {
-    it.ic = i;
-    it.busca = sem_acento(`${it.pt} ${it.en} ${it.id.replace(/_/g, " ")}`);
-    porId.set(it.id, it);
-  });
-  document.documentElement.style.setProperty("--cols", COLUNAS_SPRITE);
-  $("versao").textContent = `Minecraft Java ${dados.versao}`;
-  $("versao2").textContent = dados.versao;
-  $("contagem").textContent = "";
+  const [, rec] = await Promise.all([carregarBase(), fetch("dados/receitas.json").then((r) => r.json())]);
+  receitas = rec;
+  motor = criarMotor(base.dados, receitas);
+  montaTopo("index.html");
+  ligaDica();
 
   montaChips();
   montaLista();
@@ -500,15 +472,10 @@ async function iniciar() {
 
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(giraAlternativas, 1100);
 
-  // abre numa pergunta útil: como se faz a mesa de trabalho
-  if (new URLSearchParams(location.search).has("item")) {
-    const id = new URLSearchParams(location.search).get("item");
-    if (porId.has(id)) escolher(id);
-  }
+  // ?item=id abre direto na receita daquele item (as outras páginas ligam para cá desse jeito)
+  const pedido = new URLSearchParams(location.search).get("item");
+  if (pedido && porId.has(pedido)) escolher(pedido);
   window.bancada = { estado, motor, escolher, colocar, renderMesa }; // para depurar no console
 }
 
-iniciar().catch((e) => {
-  console.error(e);
-  document.querySelector(".app").innerHTML = `<p class="painel">Não consegui carregar os dados (${esc(e.message)}). Abra a página por um servidor (abrir.bat), não direto do arquivo.</p>`;
-});
+iniciar().catch(mostraErro);

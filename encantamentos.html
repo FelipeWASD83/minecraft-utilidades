@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encantamentos · Bancada</title>
+  <meta name="description" content="Todos os encantamentos do Minecraft: o que fazem, nível máximo, o que não combina e em quais itens servem.">
+  <meta name="theme-color" content="#171c19">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <header class="topo" id="topo"></header>
+
+  <main class="duas">
+    <section class="painel" aria-labelledby="t-item">
+      <div class="painel-cab">
+        <h2 id="t-item">Escolha o item</h2>
+        <button class="btn" id="limpar" type="button" hidden>Ver todos</button>
+      </div>
+      <div class="escolha" id="escolha" role="group" aria-label="Itens para encantar"></div>
+      <p class="saida" id="resumo" role="status" aria-live="polite"></p>
+      <div class="sugestao" id="sugestao" hidden>
+        <p class="rotulo">Tudo que cabe nele</p>
+        <ul id="sugestao-lista"></ul>
+        <p class="nota-peq">Onde aparece “ou”, só uma das opções cabe: elas não combinam entre si. O “+” junta os que combinam.</p>
+      </div>
+      <div class="como" id="como">
+        <p class="rotulo">Como conseguir</p>
+        <ul>
+          <li><b>Mesa de encantamento:</b> você escolhe uma opção de custo e o resultado sai sorteado. Com 15 estantes de livros em volta ela chega ao nível 30.</li>
+          <li><b>Bigorna:</b> junta dois itens, ou um item e um livro encantado, somando os encantamentos. Cada junção deixa a próxima mais cara.</li>
+          <li><b>Aldeão bibliotecário:</b> vende livros encantados.</li>
+          <li><b>Baús, pesca e ruínas:</b> soltam itens e livros já encantados, inclusive os de tesouro.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="painel" aria-labelledby="t-lista">
+      <div class="painel-cab">
+        <h2 id="t-lista">Encantamentos</h2>
+        <span class="rotulo" id="contagem">carregando…</span>
+      </div>
+      <div class="busca">
+        <label class="sr" for="busca">Buscar encantamento</label>
+        <input id="busca" type="search" placeholder="Buscar: afiação, mending, queda…" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filtrar"></div>
+      <div class="cartoes" id="cartoes"></div>
+      <p class="sem-itens" id="vazio" hidden>Nenhum encantamento com esse filtro.</p>
+    </section>
+  </main>
+
+  <footer class="rodape" id="rodape"></footer>
+
+  <script type="module" src="js/encantamentos.js"></script>
+</body>
+</html>

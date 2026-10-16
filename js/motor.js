@@ -253,8 +253,36 @@ export function criarMotor(dados, receitas) {
       else if (r.k === "repairitem" && danificavel(id)) lista.push(r);
       else if (r.k === "bannerduplicate" && noGrupo("banners", id)) lista.push(r);
     }
-    return lista;
+    // mesa de trabalho primeiro, depois fornalha, cortapedra e ferraria
+    const ordem = { shaped: 0, shapeless: 0, special: 0 };
+    return lista.sort((a, b) => (ordem[a.t] ?? 1) - (ordem[b.t] ?? 1));
   }
 
-  return { casa, alternativas, resolver, receitasDe, danificavel, recorte };
+  // índice: ingrediente -> itens que usam ele em alguma receita (inclusive por grupo de materiais)
+  let usado = null;
+  function ingredientesDe(r) {
+    if (r.t === "shaped") return r.g.flat().filter(Boolean);
+    if (r.t === "shapeless") return r.i;
+    if (r.t === "cozinhar" || r.t === "cortapedra") return [r.i];
+    if (r.t === "ferraria") return [r.m, r.b, r.a];
+    return [];
+  }
+  function usadoEm(id) {
+    if (!usado) {
+      usado = new Map();
+      for (const r of receitas) {
+        if (!r.r) continue;
+        for (const ing of ingredientesDe(r)) {
+          for (const alt of alternativas(ing)) {
+            if (alt === r.r) continue;
+            if (!usado.has(alt)) usado.set(alt, new Set());
+            usado.get(alt).add(r.r);
+          }
+        }
+      }
+    }
+    return [...(usado.get(id) ?? [])];
+  }
+
+  return { casa, alternativas, resolver, receitasDe, usadoEm, danificavel, recorte };
 }

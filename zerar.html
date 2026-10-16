@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zerar o jogo · Bancada</title>
+  <meta name="description" content="Guia para zerar o Minecraft: do primeiro dia até o Ender Dragon, com lista de tarefas que fica salva e a altura certa para cada minério.">
+  <meta name="theme-color" content="#171c19">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <header class="topo" id="topo"></header>
+
+  <main class="duas duas-larga">
+    <nav class="painel toc-painel" aria-labelledby="t-toc">
+      <div class="painel-cab">
+        <h2 id="t-toc">Etapas</h2>
+        <button class="btn" id="zerar" type="button">Limpar marcações</button>
+      </div>
+      <div class="progresso" aria-hidden="true"><span id="barra"></span></div>
+      <p class="rotulo" id="progresso-txt"></p>
+      <ol class="toc" id="toc"></ol>
+    </nav>
+
+    <section class="painel" aria-labelledby="t-guia">
+      <h2 class="sr" id="t-guia">Guia</h2>
+      <div class="rolagem" id="guia"></div>
+    </section>
+  </main>
+
+  <footer class="rodape" id="rodape"></footer>
+
+  <script type="module" src="js/zerar.js"></script>
+</body>
+</html>

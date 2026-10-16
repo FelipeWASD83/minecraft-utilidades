@@ -85,7 +85,7 @@ test("mesa vazia não produz nada", () => {
 test("toda receita com forma acha a si mesma na mesa", () => {
   let falhas = [];
   for (const r of receitas) {
-    if (r.t === "special") continue;
+    if (r.t !== "shaped" && r.t !== "shapeless") continue;
     const mesa = Array(9).fill(N);
     const pick = (ing) => m.alternativas(ing)[0];
     if (r.t === "shaped") {
@@ -104,4 +104,22 @@ test("receitasDe lista as receitas de um item", () => {
   assert.ok(m.receitasDe("crafting_table").length >= 1);
   assert.ok(m.receitasDe("oak_planks").length >= 1);
   assert.equal(m.receitasDe("diamond_ore").length, 0);
+});
+
+test("receitas de fornalha, cortapedra e ferraria aparecem em receitasDe", () => {
+  assert.ok(m.receitasDe("iron_ingot").some((r) => r.t === "cozinhar"));
+  assert.ok(m.receitasDe("stone_bricks").some((r) => r.t === "cortapedra"));
+  assert.ok(m.receitasDe("netherite_pickaxe").some((r) => r.t === "ferraria"));
+});
+
+test("a mesa de trabalho vem antes das outras receitas", () => {
+  const lista = m.receitasDe("iron_ingot");
+  const primeiraOutra = lista.findIndex((r) => r.t === "cozinhar");
+  assert.ok(lista.slice(0, primeiraOutra).every((r) => r.t === "shaped" || r.t === "shapeless"));
+});
+
+test("usadoEm: graveto entra em picaretas e o grupo de tábuas entra no graveto", () => {
+  assert.ok(m.usadoEm("stick").includes("wooden_pickaxe"));
+  assert.ok(m.usadoEm("birch_planks").includes("stick"));
+  assert.ok(!m.usadoEm("stick").includes("stick"));
 });

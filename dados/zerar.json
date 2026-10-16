@@ -1,0 +1,144 @@
+{
+  "_leia": "Texto escrito à mão. Quantidades de receita conferidas nos dados do jogo 1.21.11; mecânica de portal, olho de Ender e dragão conferida na Minecraft Wiki. O caminho é o mais comum, não o único.",
+  "fases": [
+    {
+      "id": "comeco",
+      "titulo": "Primeiros minutos",
+      "resumo": "Madeira, ferramentas, comida e um abrigo antes da primeira noite.",
+      "tarefas": [
+        { "texto": "Bata em árvores até ter uns 10 troncos. Faça tábuas e uma mesa de trabalho.", "itens": [["oak_log", "10"], ["crafting_table", "1"]] },
+        { "texto": "Faça picareta e machado de madeira. Mine pedregulho e troque para pedra.", "itens": [["wooden_pickaxe", ""], ["stone_pickaxe", ""], ["cobblestone", "16+"]] },
+        { "texto": "Mate vacas, porcos e galinhas para ter carne. Mate ovelhas (ou tosquie) para juntar 3 lãs.", "itens": [["beef", ""], ["white_wool", "3"]] },
+        { "texto": "Faça uma fornalha com 8 pedregulhos e cozinhe a carne. Carne crua enche pouco.", "itens": [["furnace", "1"], ["cooked_beef", ""]] },
+        { "texto": "Antes de escurecer: tochas (carvão e graveto), uma cama (3 lãs e 3 tábuas) e um abrigo com a entrada tampada. Dormir pula a noite.", "itens": [["torch", ""], ["white_bed", "1"]] }
+      ],
+      "dicas": [
+        "Monstros nascem no escuro. Um quarto bem iluminado e fechado resolve a primeira noite.",
+        "Se não achar carvão, queime troncos na fornalha para fazer carvão vegetal: serve do mesmo jeito para tocha."
+      ]
+    },
+    {
+      "id": "ferro",
+      "titulo": "Ferro e a primeira armadura",
+      "resumo": "A armadura de ferro e o escudo deixam o resto da viagem muito mais segura.",
+      "tarefas": [
+        { "texto": "Ache ferro. Veja na aba “Onde cavar” a altura certa.", "itens": [["raw_iron", "24+"]] },
+        { "texto": "Cozinhe o ferro bruto na fornalha para virar lingote.", "itens": [["iron_ingot", "24+"]] },
+        { "texto": "Faça a armadura de ferro: capacete (5 lingotes), peitoral (8), calças (7) e botas (4), 24 no total.", "itens": [["iron_helmet", ""], ["iron_chestplate", ""], ["iron_leggings", ""], ["iron_boots", ""]] },
+        { "texto": "Faça espada de ferro, picareta de ferro e um escudo (1 lingote e 6 tábuas).", "itens": [["iron_sword", ""], ["iron_pickaxe", ""], ["shield", ""]] },
+        { "texto": "Faça um balde (3 lingotes) e encha de água. Ele apaga lava e salva queda.", "itens": [["bucket", ""], ["water_bucket", ""]] }
+      ],
+      "dicas": [
+        "O escudo bloqueia flechas, golpes e bolas de fogo enquanto estiver levantado.",
+        "A pedra e o ferro pedem ferramenta melhor: ferro só com picareta de pedra ou melhor."
+      ]
+    },
+    {
+      "id": "diamantes",
+      "titulo": "Diamantes e obsidiana",
+      "resumo": "Picareta de diamante para quebrar obsidiana, e a mesa de encantamento para deixar tudo mais forte.",
+      "tarefas": [
+        { "texto": "Desça perto do fundo do mundo para achar diamante. Abaixo de y -54 há lagos de lava: leve balde de água e cave com cuidado.", "itens": [["diamond", "5+"]] },
+        { "texto": "Faça uma picareta de diamante (3 diamantes e 2 gravetos). É a única que quebra obsidiana.", "itens": [["diamond_pickaxe", ""]] },
+        { "texto": "Faça obsidiana jogando água em cima de lava parada. Quebre com a picareta de diamante. Junte 10 para o portal (14 se quiser os cantos).", "itens": [["obsidian", "10"]] },
+        { "texto": "Faça uma mesa de encantamento (4 obsidianas, 2 diamantes e 1 livro). Com 15 estantes de livros em volta ela chega ao nível 30.", "itens": [["enchanting_table", ""], ["bookshelf", "15"]] },
+        { "texto": "Faça um isqueiro (1 lingote de ferro e 1 sílex) para acender o portal.", "itens": [["flint_and_steel", ""]] }
+      ],
+      "dicas": [
+        "Veja a aba de Encantamentos para escolher o que pôr em cada peça. Proteção IV na armadura e Afiação V na espada já ajudam muito.",
+        "Nunca cave direto para baixo e nunca cave em linha reta para cima: lava e areia caem."
+      ]
+    },
+    {
+      "id": "nether",
+      "titulo": "Nether: varetas de blaze e pérolas",
+      "resumo": "Duas coisas importam lá: varetas de blaze e pérolas de Ender. O resto é perigo.",
+      "tarefas": [
+        { "texto": "Monte o portal (moldura de obsidiana de 4 de largura e 5 de altura, 10 blocos sem os cantos) e acenda.", "itens": [["obsidian", "10"], ["flint_and_steel", ""]] },
+        { "texto": "Leve armadura, escudo, comida, balde de água, blocos de sobra e poção de Resistência ao Fogo. Nunca durma no Nether: a cama explode.", "itens": [["potion", "Resistência ao Fogo"], ["water_bucket", ""], ["cobblestone", "2 pilhas"]] },
+        { "texto": "Use pelo menos uma peça de armadura de ouro. Piglins só ficam calmos assim (os brutos atacam de qualquer jeito).", "itens": [["golden_helmet", ""]] },
+        { "texto": "Ache uma fortaleza do Nether (tijolos escuros) e o spawner de blaze. Junte pelo menos 7 varetas: 12 olhos pedem 6, e sobra margem.", "itens": [["blaze_rod", "7+"]] },
+        { "texto": "Pérolas: endermen no Nether (floresta distorcida), troca de ouro com piglins ou aldeão clérigo.", "itens": [["gold_ingot", ""], ["ender_pearl", "12+"]] }
+      ],
+      "dicas": [
+        "1 bloco no Nether são 8 no Overworld. Use a aba Calculadoras para voltar ao portal.",
+        "Ande sempre pelas bordas e construa ponte de blocos sobre lava. Nunca cave para baixo.",
+        "Veja a aba Farms para a farm de blaze."
+      ]
+    },
+    {
+      "id": "olhos",
+      "titulo": "Olhos de Ender",
+      "resumo": "Cada olho é uma pérola e um pó de blaze. Você precisa de 12 no pior caso.",
+      "tarefas": [
+        { "texto": "Faça pó de blaze: 1 vareta dá 2 pós.", "itens": [["blaze_powder", "12+"]] },
+        { "texto": "Faça os olhos: 1 pérola de Ender e 1 pó de blaze cada. Faça uns 14 a 16 para sobrar para os que quebram.", "itens": [["ender_eye", "14+"]] }
+      ],
+      "dicas": [
+        "Jogue um olho de cada vez: às vezes ele quebra em vez de cair, e você perde.",
+        "Alguns quadros do portal já vêm com olho (10% de chance cada), então você pode precisar de menos."
+      ]
+    },
+    {
+      "id": "fortaleza",
+      "titulo": "Achar a fortaleza",
+      "resumo": "O olho voa para a fortaleza mais próxima. Dá para achar sem cavar o mundo inteiro.",
+      "tarefas": [
+        { "texto": "Jogue um olho de Ender: ele voa na direção da fortaleza mais próxima. Ande nesse sentido e repita.", "itens": [["ender_eye", ""]] },
+        { "texto": "Para achar mais rápido, jogue de dois lugares bem distantes e cruze as duas direções. Use a aba Calculadoras.", "itens": [] },
+        { "texto": "Quando o olho começar a afundar no chão, a fortaleza está embaixo de você. Cave ali.", "itens": [["diamond_pickaxe", ""]] },
+        { "texto": "Ache a sala do portal: uma escada leva a 12 quadros em volta de um lago de lava. Cuidado com o spawner de traças.", "itens": [["end_portal_frame", ""]] },
+        { "texto": "Ponha um olho em cada quadro vazio. Quando todos tiverem olho, o portal abre.", "itens": [["ender_eye", ""]] }
+      ],
+      "dicas": [
+        "A fortaleza mais próxima do ponto 0,0 fica de 1.280 a 2.816 blocos dele.",
+        "Faça uma cama ou uma base perto do portal antes de pular."
+      ]
+    },
+    {
+      "id": "preparar",
+      "titulo": "Preparar para o Fim",
+      "resumo": "Não dá para voltar rápido: leve tudo de uma vez.",
+      "tarefas": [
+        { "texto": "Armadura de diamante com Proteção e espada de diamante com Afiação.", "itens": [["diamond_chestplate", ""], ["diamond_sword", ""]] },
+        { "texto": "Arco com Poder, e pelo menos 64 flechas.", "itens": [["bow", ""], ["arrow", "64+"]] },
+        { "texto": "Maçãs douradas, comida e um balde de água.", "itens": [["golden_apple", "4+"], ["water_bucket", ""]] },
+        { "texto": "Blocos de sobra (2 pilhas) para pontes e para se proteger.", "itens": [["cobblestone", "128"]] },
+        { "texto": "Uma abóbora esculpida para usar na cabeça: os endermen não te atacam se você olhar para eles.", "itens": [["carved_pumpkin", ""]] },
+        { "texto": "Camas, se quiser usar a explosão delas contra o dragão pousado. Elas explodem no Fim e no Nether.", "itens": [["white_bed", "5+"]] }
+      ],
+      "dicas": [
+        "Entre pelo portal e você aparece numa plataforma de obsidiana. O vazio em volta mata na hora: não ande cego.",
+        "Não olhe nos olhos dos endermen sem a abóbora na cabeça."
+      ]
+    },
+    {
+      "id": "dragao",
+      "titulo": "Matar o Dragão",
+      "resumo": "É a luta que zera o jogo. O dragão tem 200 de vida (100 corações) e dá 12.000 de XP na primeira morte.",
+      "tarefas": [
+        { "texto": "Quebre os cristais do Fim no alto dos pilares de obsidiana. Eles curam o dragão e explodem ao quebrar. Alguns estão em jaulas de barra de ferro.", "itens": [["end_crystal", ""]] },
+        { "texto": "Use flechas contra os cristais que você não alcança. Fique longe quando quebrar um perto: a explosão machuca.", "itens": [["bow", ""], ["arrow", ""]] },
+        { "texto": "O dragão pousa na fonte do centro. Aí flecha não funciona: ataque corpo a corpo.", "itens": [["diamond_sword", ""]] },
+        { "texto": "Evite a nuvem de bafo: ela causa 3 de dano por segundo e fica no chão.", "itens": [["dragon_breath", ""]] },
+        { "texto": "Quando ele morrer, aparece o portal de saída e o ovo do dragão (só na primeira vez). Pule no portal para ver os créditos e voltar.", "itens": [["dragon_egg", ""]] }
+      ],
+      "dicas": [
+        "Não deixe ele te derrubar no vazio. Ande com os blocos na mão.",
+        "Os cristais curam o dragão: quebre todos antes de começar a bater nele."
+      ]
+    },
+    {
+      "id": "depois",
+      "titulo": "Depois de zerar",
+      "resumo": "O jogo continua. Algumas ideias do que fazer agora.",
+      "tarefas": [
+        { "texto": "Vá às ilhas externas pelo portal que aparece depois da luta. As cidades do Fim têm navios com elytra e caixas de shulker.", "itens": [["elytra", ""], ["shulker_box", ""]] },
+        { "texto": "Invoque o Wither (3 caveiras de esqueleto wither e 4 blocos de areia das almas) para ter uma estrela do Nether e fazer um sinalizador.", "itens": [["nether_star", ""], ["beacon", ""]] },
+        { "texto": "Procure detritos antigos no Nether (altura 15) e faça netherite para melhorar a armadura de diamante.", "itens": [["ancient_debris", ""], ["netherite_ingot", ""]] },
+        { "texto": "Monte as farms da aba Farms e construa o que quiser.", "itens": [] }
+      ],
+      "dicas": []
+    }
+  ]
+}

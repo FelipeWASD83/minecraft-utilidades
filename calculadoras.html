@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadoras · Bancada</title>
+  <meta name="description" content="Calculadoras para o Minecraft: achar a fortaleza com o olho de Ender, coordenadas do Nether, pilhas e baús, e combustível da fornalha.">
+  <meta name="theme-color" content="#171c19">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <header class="topo" id="topo"></header>
+
+  <main class="calc">
+    <div class="calc-cab">
+      <h1>Calculadoras</h1>
+      <p>Contas que você faz toda hora no jogo.</p>
+    </div>
+
+    <div class="calc-grade">
+      <section class="calc-cartao" aria-labelledby="c1">
+        <h2 id="c1">Achar a fortaleza</h2>
+        <p class="nota-peq">Jogue um olho de Ender de dois lugares bem afastados. Em cada um, aperte <kbd>F3</kbd>, olhe para onde o olho voou e copie o <b>x</b>, o <b>z</b> e o <b>ângulo</b> (o primeiro número entre parênteses depois de “Facing”).</p>
+        <div class="campos tres">
+          <p class="campos-t rotulo">1º lançamento</p>
+          <label>x<input id="a-x" inputmode="decimal" autocomplete="off"></label>
+          <label>z<input id="a-z" inputmode="decimal" autocomplete="off"></label>
+          <label>ângulo<input id="a-yaw" inputmode="decimal" autocomplete="off"></label>
+          <p class="campos-t rotulo">2º lançamento</p>
+          <label>x<input id="b-x" inputmode="decimal" autocomplete="off"></label>
+          <label>z<input id="b-z" inputmode="decimal" autocomplete="off"></label>
+          <label>ângulo<input id="b-yaw" inputmode="decimal" autocomplete="off"></label>
+        </div>
+        <p class="resultado" id="r-forte" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="calc-cartao" aria-labelledby="c2">
+        <h2 id="c2">Overworld e Nether</h2>
+        <p class="nota-peq">No Nether, 1 bloco vale 8 do Overworld. Digite de um lado e veja o outro. A altura (y) não muda.</p>
+        <div class="campos dois">
+          <p class="campos-t rotulo">Overworld</p>
+          <label>x<input id="o-x" inputmode="decimal" autocomplete="off"></label>
+          <label>z<input id="o-z" inputmode="decimal" autocomplete="off"></label>
+          <p class="campos-t rotulo">Nether</p>
+          <label>x<input id="n-x" inputmode="decimal" autocomplete="off"></label>
+          <label>z<input id="n-z" inputmode="decimal" autocomplete="off"></label>
+        </div>
+      </section>
+
+      <section class="calc-cartao" aria-labelledby="c3">
+        <h2 id="c3">Pilhas e baús</h2>
+        <p class="nota-peq">Quantos espaços de inventário uma quantidade de itens ocupa.</p>
+        <div class="campos dois">
+          <label>Quantidade<input id="p-total" inputmode="numeric" autocomplete="off" placeholder="ex.: 1000"></label>
+          <label>Itens por pilha
+            <select id="p-tam"><option value="64">64 (a maioria)</option><option value="16">16 (pérolas, ovos, baldes...)</option><option value="1">1 (ferramentas, armaduras)</option></select>
+          </label>
+        </div>
+        <p class="resultado" id="r-pilhas" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="calc-cartao" aria-labelledby="c4">
+        <h2 id="c4">Combustível da fornalha</h2>
+        <p class="nota-peq">Quanto de cada combustível você gasta para cozinhar uma quantidade de itens. Fornalha, alto-forno e defumador gastam o mesmo por item.</p>
+        <div class="campos um">
+          <label>Itens para cozinhar<input id="f-itens" inputmode="numeric" autocomplete="off" placeholder="ex.: 64"></label>
+        </div>
+        <div class="tabela-rolagem"><table class="tabela" id="t-fuel"></table></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="rodape" id="rodape"></footer>
+
+  <script type="module" src="js/calculadoras.js"></script>
+</body>
+</html>

@@ -35,6 +35,10 @@ NOME_TAG = {
     "gold_tool_materials": "Ouro (material de ferramenta)",
     "iron_tool_materials": "Ferro (material de ferramenta)",
     "jungle_logs": "Troncos de selva",
+    "leaves": "Qualquer folha",
+    "logs_that_burn": "Qualquer tronco (que queima)",
+    "netherite_tool_materials": "Netherite (material de ferramenta)",
+    "smelts_to_glass": "Qualquer areia",
     "logs": "Qualquer tronco",
     "mangrove_logs": "Troncos de mangue",
     "oak_logs": "Troncos de carvalho",
@@ -64,6 +68,14 @@ ESPECIAIS = {
     "minecraft:crafting_special_repairitem": "repairitem",
     "minecraft:crafting_special_shielddecoration": "shielddecoration",
     "minecraft:crafting_special_tippedarrow": "tippedarrow",
+}
+
+# Receitas de cozinhar: tipo do jogo -> bloco que faz
+COZINHAR = {
+    "minecraft:smelting": "furnace",
+    "minecraft:blasting": "blast_furnace",
+    "minecraft:smoking": "smoker",
+    "minecraft:campfire_cooking": "campfire",
 }
 
 # Itens que são só de teste interno do jogo: não entram na lista.
@@ -170,6 +182,25 @@ def main():
             r = {"t": "shapeless", "i": [limpa(x) for x in d["ingredients"]]}
         elif t == "minecraft:crafting_transmute":
             r = {"t": "shapeless", "i": [limpa(d["input"]), limpa(d["material"])]}
+        elif t in COZINHAR:
+            res = d["result"]
+            r = {"t": "cozinhar", "e": COZINHAR[t], "i": limpa(d["ingredient"]),
+                 "r": limpa(res["id"] if isinstance(res, dict) else res), "n": 1,
+                 "x": d.get("experience", 0), "s": d.get("cookingtime", 200) / 20, "id": arquivo}
+            receitas.append(r)
+            continue
+        elif t == "minecraft:stonecutting":
+            res = d["result"]
+            r = {"t": "cortapedra", "i": limpa(d["ingredient"]), "r": limpa(res["id"]),
+                 "n": res.get("count", 1), "id": arquivo}
+            receitas.append(r)
+            continue
+        elif t == "minecraft:smithing_transform":
+            res = d["result"]
+            r = {"t": "ferraria", "m": limpa(d["template"]), "b": limpa(d["base"]), "a": limpa(d["addition"]),
+                 "r": limpa(res["id"]), "n": res.get("count", 1), "id": arquivo}
+            receitas.append(r)
+            continue
         elif t in ESPECIAIS:
             r = {"t": "special", "k": ESPECIAIS[t]}
             # os especiais não trazem resultado fixo; o motor do site calcula
@@ -223,6 +254,11 @@ def main():
         elif r["t"] == "shapeless":
             for c in r["i"]:
                 coleta(c)
+        elif r["t"] in ("cozinhar", "cortapedra"):
+            coleta(r["i"])
+        elif r["t"] == "ferraria":
+            for c in (r["m"], r["b"], r["a"]):
+                coleta(c)
     # tags que os receitas especiais usam (peças do vaso, estandartes, etc.)
     usadas |= {"decorated_pot_sherds", "banners", "dyeable", "book_cloning_target", "decorated_pot_ingredients"}
     tags = {}
@@ -262,12 +298,179 @@ def main():
     (RAIZ / "dados" / "itens.json").write_text(json.dumps(saida, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (RAIZ / "dados" / "receitas.json").write_text(json.dumps(receitas, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
-    print(f"{len(itens)} itens, {len(receitas)} receitas da mesa, {len(tags)} grupos de materiais")
+    enc = construir_encantamentos(zf, set(nomes), en, pt, existentes, tags_brutas, expande)
+    (RAIZ / "dados" / "encantamentos.json").write_text(json.dumps(enc, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    (RAIZ / "dados" / "minerios.json").write_text(json.dumps(construir_minerios(zf, set(nomes)), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"{len(enc['encantamentos'])} encantamentos, {len(enc['itensTag'])} grupos de itens encantáveis")
+    print(f"{len(itens)} itens, {len(receitas)} receitas, {len(tags)} grupos de materiais")
     print("craftáveis:", len(craftaveis))
     print("sem nome no idioma:", sem_nome)
     print("tags sem nome pt:", faltam)
     resultados_fora = sorted(r for r in craftaveis if r not in existentes)
     print("resultado que não é item:", resultados_fora)
+
+
+# O que cada encantamento faz, em uma frase (o jogo só traz o nome). Escrito à mão.
+DESC_ENCANTAMENTO = {
+    "aqua_affinity": "Quebra blocos debaixo d'água na velocidade normal.",
+    "bane_of_arthropods": "Mais dano contra aranhas, traças, endermites e abelhas, e deixa o alvo lento.",
+    "binding_curse": "A peça não sai do corpo enquanto você estiver vivo (só se ela quebrar).",
+    "blast_protection": "Reduz o dano e o recuo de explosões.",
+    "breach": "Maça: faz a armadura do alvo valer menos.",
+    "channeling": "Tridente: invoca um raio ao acertar um mob durante tempestade.",
+    "density": "Maça: aumenta o dano do golpe de queda.",
+    "depth_strider": "Anda mais rápido debaixo d'água.",
+    "efficiency": "Quebra blocos mais rápido.",
+    "feather_falling": "Reduz o dano de queda.",
+    "fire_aspect": "Põe fogo no alvo.",
+    "fire_protection": "Reduz o dano de fogo e o tempo em chamas.",
+    "flame": "Arco: as flechas incendeiam o alvo.",
+    "fortune": "Blocos como minérios e folhas soltam mais itens.",
+    "frost_walker": "Transforma a água sob seus pés em gelo.",
+    "impaling": "Tridente: mais dano contra mobs aquáticos.",
+    "infinity": "Arco: a flecha comum não é gasta ao atirar.",
+    "knockback": "Empurra o alvo para trás.",
+    "looting": "Mobs soltam mais itens.",
+    "loyalty": "Tridente: volta sozinho para a sua mão depois de arremessado.",
+    "luck_of_the_sea": "Pesca: mais chance de tesouro e menos de lixo.",
+    "lunge": "Lança: o golpe de estocada lança você para a frente, ao custo de fome e durabilidade.",
+    "lure": "Pesca: o peixe morde mais rápido.",
+    "mending": "A experiência que você coleta conserta o item.",
+    "multishot": "Besta: dispara três flechas de uma vez, gastando uma.",
+    "piercing": "Besta: a flecha atravessa os mobs.",
+    "power": "Arco: mais dano nas flechas.",
+    "projectile_protection": "Reduz o dano de flechas e outros projéteis.",
+    "protection": "Reduz quase todo tipo de dano.",
+    "punch": "Arco: a flecha empurra o alvo para trás.",
+    "quick_charge": "Besta: carrega mais rápido.",
+    "respiration": "Aguenta mais tempo debaixo d'água e enxerga melhor lá.",
+    "riptide": "Tridente: em água ou chuva, lança você junto com ele em vez de arremessar.",
+    "sharpness": "Mais dano corpo a corpo.",
+    "silk_touch": "Quebra o bloco inteiro (minério, vidro, grama...) em vez dos itens dele.",
+    "smite": "Mais dano contra mortos-vivos.",
+    "soul_speed": "Anda mais rápido em areia e solo das almas, gastando a bota.",
+    "sweeping_edge": "Espada: aumenta o dano do ataque em arco.",
+    "swift_sneak": "Anda mais rápido agachado.",
+    "thorns": "Devolve dano a quem bate em você, gastando durabilidade.",
+    "unbreaking": "Chance de o item não gastar durabilidade.",
+    "vanishing_curse": "O item some quando você morre.",
+    "wind_burst": "Maça: depois do golpe de queda, joga você para cima.",
+}
+
+
+def construir_encantamentos(zf, nomes, en, pt, existentes, tags_brutas, expande):
+    """dados/encantamentos.json: tudo que o jogo guarda de cada encantamento."""
+    def tag_ench(caminho):
+        n = f"data/minecraft/tags/enchantment/{caminho}.json"
+        return json.loads(zf.read(n).decode("utf-8"))["values"] if n in nomes else []
+
+    def expande_ench(vals, vistos=()):
+        out = []
+        for v in vals:
+            v = v.replace("minecraft:", "")
+            if v.startswith("#"):
+                out += expande_ench(tag_ench(v[1:]), vistos)
+            else:
+                out.append(v)
+        return out
+
+    nao_tesouro = set(expande_ench(tag_ench("non_treasure")))
+    tabela = set(expande_ench(tag_ench("in_enchanting_table")))
+    troca = set(expande_ench(tag_ench("tradeable")))
+    tesouro = set(expande_ench(tag_ench("treasure")))
+    loot = set(expande_ench(tag_ench("on_random_loot")))
+    maldicao = set(expande_ench(tag_ench("curse")))
+
+    itens_tag = {}
+
+    def tag_itens(ref):
+        if not ref:
+            return None
+        nome = ref.replace("#minecraft:", "")
+        if nome not in itens_tag:
+            itens_tag[nome] = [m for m in dict.fromkeys(expande(nome)) if m in existentes]
+        return nome
+
+    lista = []
+    for n in sorted(nomes):
+        if not (n.startswith("data/minecraft/enchantment/") and n.endswith(".json")):
+            continue
+        i = Path(n).stem
+        d = json.loads(zf.read(n).decode("utf-8"))
+        excl = d.get("exclusive_set")
+        exclusivos = []
+        if excl:
+            exclusivos = [e for e in expande_ench(tag_ench(excl.replace("#minecraft:", ""))) if e != i]
+        chave = f"enchantment.minecraft.{i}"
+        lista.append({
+            "id": i,
+            "pt": pt.get(chave, en.get(chave, i)),
+            "en": en.get(chave, i),
+            "max": d["max_level"],
+            "peso": d["weight"],
+            "bigorna": d["anvil_cost"],
+            "min": [d["min_cost"]["base"], d["min_cost"]["per_level_above_first"]],
+            "maxc": [d["max_cost"]["base"], d["max_cost"]["per_level_above_first"]],
+            "desc": DESC_ENCANTAMENTO.get(i, ""),
+            "itens": tag_itens(d["supported_items"]),
+            "principais": tag_itens(d.get("primary_items")),
+            "exclusivos": exclusivos,
+            "tabela": i in tabela,
+            "troca": i in troca,
+            "loot": i in loot,
+            "tesouro": i in tesouro,
+            "maldicao": i in maldicao,
+        })
+    # O jogo trata o conflito nos dois sentidos (A barra B se A lista B ou B lista A),
+    # mas cada encantamento só guarda o próprio conjunto: a Correnteza lista a Lealdade, e a Lealdade não lista nada.
+    por_id = {e["id"]: e for e in lista}
+    for e in lista:
+        for x in e["exclusivos"]:
+            if e["id"] not in por_id[x]["exclusivos"]:
+                por_id[x]["exclusivos"].append(e["id"])
+    lista.sort(key=lambda x: x["pt"].lower())
+    return {"encantamentos": lista, "itensTag": itens_tag}
+
+
+# Minérios: onde o jogo os gera (a faixa de altura sai direto das regras de geração do jogo).
+MINERIOS = [
+    # (id do item, nome da regra de geração, dimensão)
+    ("coal_ore", ["ore_coal_lower", "ore_coal_upper"], "overworld"),
+    ("copper_ore", ["ore_copper"], "overworld"),
+    ("iron_ore", ["ore_iron_middle", "ore_iron_small", "ore_iron_upper"], "overworld"),
+    ("lapis_ore", ["ore_lapis", "ore_lapis_buried"], "overworld"),
+    ("gold_ore", ["ore_gold", "ore_gold_lower"], "overworld"),
+    ("redstone_ore", ["ore_redstone", "ore_redstone_lower"], "overworld"),
+    ("diamond_ore", ["ore_diamond", "ore_diamond_buried", "ore_diamond_medium"], "overworld"),
+    ("emerald_ore", ["ore_emerald"], "overworld"),
+    ("nether_gold_ore", ["ore_gold_nether", "ore_gold_deltas"], "nether"),
+    ("nether_quartz_ore", ["ore_quartz_nether", "ore_quartz_deltas"], "nether"),
+    ("ancient_debris", ["ore_ancient_debris_large", "ore_debris_small"], "nether"),
+]
+LIMITES = {"overworld": (-64, 320), "nether": (0, 128)}
+
+
+def construir_minerios(zf, nomes):
+    def y(ref, dim):
+        fundo, topo = LIMITES[dim]
+        if "absolute" in ref:
+            return ref["absolute"]
+        if "above_bottom" in ref:
+            return fundo + ref["above_bottom"]
+        return topo - ref["below_top"]
+
+    out = []
+    for item, regras, dim in MINERIOS:
+        faixas = []
+        fundo, topo = LIMITES[dim]
+        for r in regras:
+            d = json.loads(zf.read(f"data/minecraft/worldgen/placed_feature/{r}.json").decode("utf-8"))
+            h = [p for p in d["placement"] if p["type"].endswith("height_range")][0]["height"]
+            lo, hi = y(h["min_inclusive"], dim), y(h["max_inclusive"], dim)
+            tipo = h["type"].replace("minecraft:", "")
+            faixas.append({"regra": r, "min": max(lo, fundo), "max": min(hi, topo - 1), "pico": round(max(min((lo + hi) / 2, topo - 1), fundo)) if tipo == "trapezoid" else None, "tipo": tipo})
+        out.append({"id": item, "dim": dim, "faixas": faixas})
+    return out
 
 
 if __name__ == "__main__":

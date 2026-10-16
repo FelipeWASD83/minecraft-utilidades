@@ -1,0 +1,341 @@
+{
+  "_leia": "Texto escrito à mão. Números de mecânica (spawner, golem, drops) foram conferidos nas tabelas do jogo 1.21.11 e na Minecraft Wiki; veja o CLAUDE.md. Aqui está o princípio de cada farm, não uma planta bloco a bloco: cada pessoa monta no terreno que tem.",
+  "grupos": [
+    ["comida", "Comida e plantas"],
+    ["recursos", "Recursos"],
+    ["mobs", "Mobs e XP"]
+  ],
+  "farms": [
+    {
+      "id": "plantacao",
+      "grupo": "comida",
+      "nome": "Plantação de trigo, cenoura, batata e beterraba",
+      "nivel": "Fácil",
+      "onde": "Overworld",
+      "icone": "wheat",
+      "rende": ["wheat", "carrot", "potato", "beetroot", "wheat_seeds"],
+      "resumo": "A base da comida do jogo. Um bloco de água irriga a terra em volta e as plantas crescem sozinhas enquanto você faz outra coisa.",
+      "materiais": [["diamond_hoe", "qualquer enxada serve"], ["water_bucket", "1"], ["wheat_seeds", "ou cenoura, batata, beterraba"], ["bone_meal", "opcional, acelera"], ["torch", "para crescer à noite"], ["chest", "para guardar"]],
+      "passos": [
+        "Escolha um terreno plano e use a enxada em terra ou grama para virar terra arada.",
+        "Faça um buraco de 1 bloco no meio e ponha água nele. A água hidrata a terra arada em até 4 blocos de distância, então um quadrado de 9×9 com a água no centro rende 80 blocos de plantio.",
+        "Plante as sementes, a cenoura, a batata ou a beterraba. As plantas precisam de luz: com tochas em volta elas crescem também à noite.",
+        "Colha só quando estiver maduro: o trigo fica dourado, e cenoura, batata e beterraba mostram o legume cheio. Colher antes rende menos.",
+        "Replante na hora e use farinha de osso para acelerar."
+      ],
+      "dicas": [
+        "Fortuna aumenta o que cenoura, batata e sementes soltam.",
+        "Pular em cima da terra arada desfaz ela. Ande pelas bordas ou ponha um bloco de cima para cobrir a água."
+      ]
+    },
+    {
+      "id": "cana",
+      "grupo": "recursos",
+      "nome": "Cana-de-açúcar automática",
+      "nivel": "Médio",
+      "onde": "Overworld",
+      "icone": "sugar_cane",
+      "rende": ["sugar_cane", "sugar", "paper"],
+      "resumo": "A cana cresce até 3 blocos de altura. Um observador percebe o crescimento e liga um pistão que quebra a cana; funis guardam tudo num baú.",
+      "materiais": [["sugar_cane", "algumas para começar"], ["observer", "1 por fileira"], ["piston", "1 por fileira"], ["hopper", "alguns"], ["chest", "1 ou mais"], ["water_bucket", "1"], ["sand", "ou terra, para plantar"]],
+      "passos": [
+        "A cana só planta em areia, terra ou grama que tenha um bloco de água encostado. Monte uma fileira de blocos com água ao lado.",
+        "Plante a cana nessa fileira.",
+        "Na altura do 2º bloco de cana, ao lado dela, ponha um pistão virado para ela. Na altura do 3º bloco, ponha um observador de frente para a cana.",
+        "Ligue a saída do observador (as costas dele) ao pistão, direto ou com pó de redstone. Quando a cana crescer até o 3º bloco, o observador dá um pulso e o pistão empurra: a cana quebra e cai como item.",
+        "Sobra a base, que continua crescendo. Ponha funis embaixo para levar os itens até um baú.",
+        "Para produzir mais, repita a fileira ao lado."
+      ],
+      "dicas": [
+        "O cacto funciona do mesmo jeito, mas não aceita bloco sólido encostado nele: ele se quebra.",
+        "A cana vira papel (3 canas dão 3 papéis) e açúcar. Papel é o que você mais gasta em livros e mapas."
+      ]
+    },
+    {
+      "id": "abobora-melao",
+      "grupo": "comida",
+      "nome": "Abóbora e melão automáticos",
+      "nivel": "Médio",
+      "onde": "Overworld",
+      "icone": "melon_slice",
+      "rende": ["pumpkin", "melon_slice", "melon", "pumpkin_seeds"],
+      "resumo": "O caule da planta faz o fruto nascer num bloco vizinho. Um observador vê o fruto aparecer e um pistão o empurra para um funil.",
+      "materiais": [["pumpkin_seeds", "ou melon_seeds"], ["observer", "1 por caule"], ["piston", "1 por caule"], ["hopper", "alguns"], ["chest", "1"], ["water_bucket", "1"], ["diamond_hoe", "qualquer enxada"]],
+      "passos": [
+        "Faça terra arada com água por perto, como na plantação, e plante a semente. Caule precisa de luz.",
+        "Deixe livres os blocos vizinhos ao caule: o fruto nasce em um deles, sobre terra, grama ou outro bloco que sirva de chão.",
+        "Ponha um observador olhando para esse espaço livre e um pistão do lado oposto, virado para ele.",
+        "Quando o fruto aparece, o observador acende o pistão, que quebra e empurra o fruto para fora. Funis recolhem.",
+        "O caule continua vivo e faz outro fruto: não quebre o caule."
+      ],
+      "dicas": [
+        "Abóbora esculpida (com tesoura) na cabeça evita que endermen te vejam.",
+        "Melão rende fatias de melão (comida) e, com ouro, melão cintilante para poção de cura."
+      ]
+    },
+    {
+      "id": "madeira",
+      "grupo": "recursos",
+      "nome": "Árvores em sequência",
+      "nivel": "Fácil",
+      "onde": "Overworld",
+      "icone": "oak_log",
+      "rende": ["oak_log", "stick", "apple", "oak_sapling"],
+      "resumo": "Madeira infinita sem sair de casa: muda, farinha de osso, machado e de novo.",
+      "materiais": [["oak_sapling", "ou outra muda"], ["bone_meal", "bastante"], ["diamond_axe", "qualquer machado"], ["chest", "1"]],
+      "passos": [
+        "Plante as mudas com espaço livre em cima e em volta: a árvore não cresce se algo bloquear a copa.",
+        "Use farinha de osso na muda até ela virar árvore na hora.",
+        "Corte os troncos. As folhas somem sozinhas, soltam mudas e (no carvalho) maçãs.",
+        "Replante a muda que caiu e repita.",
+        "Pinheiro, selva e carvalho escuro crescem em quadrados 2×2 de mudas e dão troncos mais grossos."
+      ],
+      "dicas": [
+        "Machado com Eficiência e Inquebrável poupa tempo e ferramenta.",
+        "Farinha de osso sai de ossos de esqueleto: ligue com a farm de mobs."
+      ]
+    },
+    {
+      "id": "animais",
+      "grupo": "comida",
+      "nome": "Curral de animais",
+      "nivel": "Fácil",
+      "onde": "Overworld",
+      "icone": "beef",
+      "rende": ["beef", "porkchop", "mutton", "leather", "white_wool", "feather", "chicken", "egg"],
+      "resumo": "Cruze dois animais, deixe o filhote crescer e mate os adultos que sobrarem: carne, couro e lã sem fim.",
+      "materiais": [["oak_fence_gate", "ou outra cerca com portão"], ["oak_fence", "bastante"], ["lead", "para trazer os animais"], ["wheat", "vacas e ovelhas"], ["carrot", "porcos (ou batata, beterraba)"], ["wheat_seeds", "galinhas"], ["shears", "para a lã"]],
+      "passos": [
+        "Cerque uma área de grama. Cerca de madeira basta, com um portão para você entrar.",
+        "Traga pelo menos 2 animais da mesma espécie, atraindo com a comida deles na mão ou com um laço.",
+        "Alimente os dois: vacas, ovelhas e vacas-cogumelo comem trigo; porcos comem cenoura, batata ou beterraba; galinhas comem sementes. Aparece um filhote e você ganha de 1 a 7 de XP.",
+        "O filhote leva 20 minutos para crescer, e os pais esperam 5 minutos para cruzar de novo.",
+        "Mate só os adultos que passarem de 8 a 10 por espécie e deixe sempre um casal vivo."
+      ],
+      "dicas": [
+        "Mate com fogo ou lava para a carne já cair assada.",
+        "A ovelha dá de 1 a 3 lãs na tesoura e a lã volta quando ela come grama. Não precisa matar."
+      ]
+    },
+    {
+      "id": "galinhas",
+      "grupo": "comida",
+      "nome": "Galinhas, ovos e frango assado",
+      "nivel": "Médio",
+      "onde": "Overworld",
+      "icone": "egg",
+      "rende": ["egg", "feather", "chicken", "cooked_chicken"],
+      "resumo": "Galinha bota um ovo a cada 5 a 10 minutos. Com funis embaixo do chão do galinheiro, os ovos vão sozinhos para um baú.",
+      "materiais": [["wheat_seeds", "para cruzar"], ["hopper", "alguns"], ["chest", "1"], ["oak_fence", "ou outro fechamento"], ["magma_block", "para assar sem queimar os itens"]],
+      "passos": [
+        "Faça um galinheiro com o chão feito de funis (ou lajes sobre funis) ligados a um baú.",
+        "Ponha as galinhas dentro. Os ovos caem pelo chão e vão para o baú sozinhos.",
+        "Quando tiver galinhas demais, mate as extras. Cada galinha solta de 0 a 2 penas e uma carne de frango.",
+        "Para o frango cair assado, mate com fogo ou dano de magma. Cuidado com lava: ela queima os itens que caem nela."
+      ],
+      "dicas": [
+        "Ovo jogado tem 1 chance em 8 de virar uma galinha. Deixe um dispensador jogando ovos para renovar o bando.",
+        "Penas servem para flechas, e o frango assado enche bem a fome."
+      ]
+    },
+    {
+      "id": "la",
+      "grupo": "recursos",
+      "nome": "Lã de todas as cores",
+      "nivel": "Fácil",
+      "onde": "Overworld",
+      "icone": "white_wool",
+      "rende": ["white_wool", "red_wool", "blue_wool", "yellow_wool", "black_wool"],
+      "resumo": "A ovelha não precisa morrer: tosquie, espere ela comer grama e tosquie de novo.",
+      "materiais": [["shears", "com Inquebrável, se puder"], ["red_dye", "e as outras tintas"], ["wheat", "para cruzar"]],
+      "passos": [
+        "Tenha um curral com grama dentro: a ovelha tosquiada come grama para a lã voltar.",
+        "Tosquie com a tesoura. Cada ovelha solta de 1 a 3 lãs.",
+        "Para uma cor nova, tinja a ovelha com a tinta (ela mantém a cor) ou cruze ovelhas de cores diferentes.",
+        "Dispensador com tesoura tosquia ovelhas na frente dele sozinho."
+      ],
+      "dicas": [
+        "Cama, tapete, banner e a decoração em geral usam lã: tenha várias cores guardadas."
+      ]
+    },
+    {
+      "id": "algas",
+      "grupo": "recursos",
+      "nome": "Algas (combustível e comida)",
+      "nivel": "Médio",
+      "onde": "Overworld, água",
+      "icone": "dried_kelp_block",
+      "rende": ["kelp", "dried_kelp", "dried_kelp_block"],
+      "resumo": "A alga cresce rápido debaixo d'água e vira alga seca na fornalha. Um bloco de alga seca queima 20 itens, mais que carvão.",
+      "materiais": [["kelp", "algumas"], ["observer", "1 por coluna"], ["piston", "1 por coluna"], ["hopper", "alguns"], ["furnace", "1 ou mais"], ["chest", "1"]],
+      "passos": [
+        "Faça um tanque de água com chão de bloco sólido e plante a alga nele. Ela cresce para cima até a superfície.",
+        "Ponha um observador olhando para a alga numa altura fixa e um pistão ligado a ele, no mesmo estilo da cana. Quando a alga passa da altura, o pistão corta e a colheita cai.",
+        "Funis recolhem os itens e levam a um baú.",
+        "Cozinhe a alga na fornalha para virar alga seca. Nove algas secas fazem um bloco de alga seca, que é combustível."
+      ],
+      "dicas": [
+        "A alga seca também é comida rápida de comer e barata."
+      ]
+    },
+    {
+      "id": "mobs-queda",
+      "grupo": "mobs",
+      "nome": "Fazenda de mobs hostis (queda)",
+      "nivel": "Difícil",
+      "onde": "Overworld",
+      "icone": "bone",
+      "rende": ["bone", "arrow", "rotten_flesh", "gunpowder", "string", "spider_eye"],
+      "resumo": "Os monstros nascem no escuro de uma plataforma grande, escorregam na água até uma torre e morrem na queda. Você fica longe, só recolhendo.",
+      "materiais": [["cobblestone", "milhares de blocos"], ["water_bucket", "vários"], ["hopper", "alguns"], ["chest", "vários"], ["oak_trapdoor", "ou lajes, para cobrir o chão"], ["diamond_sword", "para o golpe final"]],
+      "passos": [
+        "Monstros nascem sobre bloco sólido, sem luz de bloco (nada de tocha) e com pouca luz do céu. A plataforma precisa de teto ou de estar bem acima do chão, tudo escuro.",
+        "Eles só nascem se você estiver a menos de 128 blocos e a mais de 24 blocos de distância do ponto de nascimento. Fique numa sala de espera nesse alcance. Mantenha a distância de simulação em 10 ou mais.",
+        "Faça uma plataforma larga e baixa (quanto mais chão válido, mais monstros) com canais de água que empurram todos para um buraco no meio.",
+        "Embaixo do buraco, monte uma torre de queda. Zumbi, esqueleto e creeper têm 20 de vida: cair 23 blocos mata, e 22 deixa o mob com 1 de vida.",
+        "Se matar na queda, os itens caem normalmente, mas não vem XP, e o olho de aranha só sai se você der o golpe final. Para XP, deixe com 1 de vida e acerte você mesmo.",
+        "Funis levam tudo a baús. Há um limite de 70 monstros por vez perto de você, então o ritmo é constante."
+      ],
+      "dicas": [
+        "Os mobs só contam para o limite se nasceram naturalmente: ovo de spawn, spawner e cria não contam.",
+        "Um prédio fechado e cercado de ar, no alto, gera mais mobs do que uma sala debaixo da terra."
+      ]
+    },
+    {
+      "id": "xp-spawner",
+      "grupo": "mobs",
+      "nome": "Farm de XP em spawner",
+      "nivel": "Difícil",
+      "onde": "Overworld",
+      "icone": "experience_bottle",
+      "rende": ["experience_bottle", "bone", "string", "gunpowder"],
+      "resumo": "Um spawner de zumbi, esqueleto, aranha ou aranha-da-caverna gera mobs sem parar: é a fonte de XP mais rápida das primeiras horas.",
+      "materiais": [["water_bucket", "vários"], ["hopper", "alguns"], ["chest", "1"], ["cobblestone", "muitos"], ["diamond_sword", "ou outra, para o golpe final"], ["oak_slab", "ou outro, para cobrir o chão"]],
+      "passos": [
+        "Ache o spawner (masmorra; mina abandonada para a aranha-da-caverna; fortaleza do Nether para o blaze). Ilumine tudo para ele parar enquanto você monta.",
+        "O spawner liga quando você chega a 16 blocos. A cada ciclo ele tenta gerar 4 mobs numa área de 9×3×9 em volta dele e espera de 10 a 40 segundos até o próximo. Se já houver 6 ou mais do mesmo mob por perto, ele não gera.",
+        "Tire as tochas e deixe o ambiente escuro, senão os mobs não nascem.",
+        "Cubra o chão em volta do spawner com canais de água que levam os mobs até uma queda.",
+        "Mate pela queda deixando com 1 de vida e dê o golpe final: o XP só sai se o jogador matar. Zumbi e esqueleto dão 5 de XP, e o blaze, 10.",
+        "Não é possível levar o spawner embora: nem com Toque Suave."
+      ],
+      "dicas": [
+        "A aranha-da-caverna é pequena: dá para fazer a farm bem compacta.",
+        "Fique fora da área da armadilha: mob com arco acerta de longe."
+      ],
+      "cuidado": "Aranha-da-caverna envenena. Leve leite para curar."
+    },
+    {
+      "id": "ferro",
+      "grupo": "recursos",
+      "nome": "Fazenda de ferro (golem de ferro)",
+      "nivel": "Difícil",
+      "onde": "Overworld",
+      "icone": "iron_ingot",
+      "rende": ["iron_ingot", "poppy"],
+      "resumo": "O golem de ferro solta de 3 a 5 lingotes e de 0 a 2 papoulas ao morrer. Aldeões fazem ele aparecer sozinhos; você só tem de matar.",
+      "materiais": [["white_bed", "1 por aldeão"], ["glass", "para o zumbi"], ["lava_bucket", "para matar o golem"], ["hopper", "alguns"], ["chest", "1"], ["oak_trapdoor", "para fechar a sala"]],
+      "passos": [
+        "Reúna de 3 a 5 aldeões numa sala pequena e dê uma cama para cada um. O aldeão precisa ter dormido nos últimos 20 minutos para convocar um golem.",
+        "Os aldeões precisam entrar em pânico: um zumbi à vista, preso do lado de fora atrás de vidro ou alçapão, faz isso. Com pânico, bastam 3 aldeões. Sem pânico, eles só conversam, e para isso são necessários 5.",
+        "O golem nasce numa área de 17×13×17 em volta do aldeão, num chão cujos blocos acima e o bloco dele estejam livres. Faça uma plataforma de nascimento ali, longe das camas.",
+        "Mate cada golem. Enquanto houver um por perto, nenhum outro nasce: o aldeão checa a cada 10 segundos num raio de 16 blocos, e o intervalo entre convocações é de 30 segundos.",
+        "O golem morre por dano de lava (ou outro dano) e solta os itens, que funis levam a um baú. Não precisa de golpe seu. Ele tem 100 de vida, então queda não resolve."
+      ],
+      "dicas": [
+        "Aldeão tem de estar a até 10 blocos dos outros para contar no grupo.",
+        "Sem cama, ou sem dormir, não nasce golem: se a farm parar, confira as camas."
+      ]
+    },
+    {
+      "id": "ouro",
+      "grupo": "recursos",
+      "nome": "Fazenda de ouro (portal)",
+      "nivel": "Médio",
+      "onde": "Overworld",
+      "icone": "gold_ingot",
+      "rende": ["gold_nugget", "rotten_flesh", "gold_ingot"],
+      "resumo": "Portais do Nether ativos geram piglins zumbificados no Overworld. Um portal grande, com tudo em volta pronto para derrubar e matar eles, dá pepitas de ouro direto.",
+      "materiais": [["obsidian", "o portal grande"], ["flint_and_steel", "para acender"], ["cobblestone", "para a estrutura"], ["water_bucket", "para guiar"], ["hopper", "alguns"], ["chest", "1"], ["diamond_sword", "para o golpe final"]],
+      "passos": [
+        "Monte um portal do Nether grande no Overworld e acenda. Quanto maior, mais blocos de portal recebem tique e mais mobs saem.",
+        "Os piglins zumbificados nascem na moldura de baixo do portal. O ritmo dobra no modo Normal e triplica no Difícil em relação ao Fácil.",
+        "Eles não atacam sozinhos: só reagem se forem atingidos, e então todos em volta ficam agressivos.",
+        "Faça o chão do portal levar a uma queda e a um corredor de água. Eles levam o dano da queda e morrem sem precisar de você.",
+        "Pepita de ouro e carne podre caem em qualquer morte. O lingote de ouro raro só cai se você der o golpe final.",
+        "Funis levam os itens para o baú."
+      ],
+      "dicas": [
+        "O piglin zumbificado fica 15 segundos sem poder entrar no portal de novo depois de nascer."
+      ]
+    },
+    {
+      "id": "enderman",
+      "grupo": "mobs",
+      "nome": "Fazenda de endermen (pérolas)",
+      "nivel": "Difícil",
+      "onde": "O Fim (The End)",
+      "icone": "ender_pearl",
+      "rende": ["ender_pearl"],
+      "resumo": "No Fim, endermen nascem em qualquer chão, em grupos de 4. Uma plataforma grande, escura e bem aberta enche rápido de pérolas.",
+      "materiais": [["end_stone", "ou blocos de construção"], ["water_bucket", "para o dano"], ["carved_pumpkin", "para usar na cabeça"], ["diamond_sword", "com Saque"], ["hopper", "alguns"], ["chest", "1"]],
+      "passos": [
+        "Vá para uma ilha longe do dragão e construa uma plataforma larga de chão sólido, com pelo menos 3 blocos livres acima de cada ponto. Os endermen precisam disso para nascer e se teletransportar.",
+        "No Fim, endermen nascem em qualquer chão válido e em grupos de 4, então uma plataforma maior rende mais.",
+        "Eles só atacam se você olhar nos olhos deles (a menos de 64 blocos) ou se forem atingidos. Uma abóbora esculpida na cabeça evita isso, e ficar a 3 blocos do chão evita os golpes do corpo a corpo.",
+        "Água faz 1 de vida de dano por contato e eles não sabem se proteger bem: use um corredor com água para matar.",
+        "Cada enderman solta de 0 a 1 pérola, sem precisar do jogador. Com Saque III, de 0 a 4."
+      ],
+      "dicas": [
+        "Eles também nascem no Overworld à noite e no Nether (floresta distorcida), em número menor.",
+        "Cada olho de Ender é uma pérola mais um pó de blaze: você precisa de 12 para abrir o portal do Fim, no pior caso."
+      ],
+      "cuidado": "Ele te persegue por paredes, e um teletransporte joga ele em cima de você. Mantenha a abóbora na cabeça."
+    },
+    {
+      "id": "blaze",
+      "grupo": "mobs",
+      "nome": "Fazenda de blaze (varetas)",
+      "nivel": "Difícil",
+      "onde": "Nether, fortaleza",
+      "icone": "blaze_rod",
+      "rende": ["blaze_rod"],
+      "resumo": "Os spawners de blaze das fortalezas dão varetas sem parar. A vareta só cai se o jogador (ou um lobo domado) matar o blaze.",
+      "materiais": [["potion", "de Resistência ao Fogo"], ["shield", "1"], ["water_bucket", "para o dano"], ["netherrack", "ou outro bloco"], ["diamond_sword", "com Saque"], ["snowball", "dano barato"]],
+      "passos": [
+        "Ache o spawner de blaze em uma fortaleza (sala com cerca de Nether e uma escada de 3 blocos).",
+        "Blaze só nasce com luz de nível 11 ou menos. Ilumine tudo com tochas e pedra luminosa enquanto você monta.",
+        "Ele atira 3 bolas de fogo em sequência, uma a cada 0,3 s, e depois espera 5 segundos. No Normal cada bola faz 5 de dano e põe fogo; escudo bloqueia as duas coisas.",
+        "Cerque o spawner com blocos deixando uma abertura onde só um blaze entra por vez e você acerta pela fresta.",
+        "Água, chuva e bola de neve machucam ele (a água faz 1 de vida por contato). Ele afunda na água.",
+        "A vareta só cai se você matar. Saque III dá de 0 a 4, e cada blaze solta 10 de XP."
+      ],
+      "dicas": [
+        "Um olho de Ender usa meia vareta (uma vareta faz 2 pós de blaze): 12 olhos no pior caso pedem 6 varetas.",
+        "Uma vareta também vira combustível (12 itens na fornalha)."
+      ],
+      "cuidado": "Atacar um blaze alerta todos os outros por perto. Leve armadura boa e Resistência ao Fogo."
+    },
+    {
+      "id": "bruxa",
+      "grupo": "mobs",
+      "nome": "Fazenda de bruxas (cabana do pântano)",
+      "nivel": "Médio",
+      "onde": "Overworld, pântano",
+      "icone": "redstone",
+      "rende": ["redstone", "glowstone_dust", "sugar", "spider_eye", "glass_bottle", "gunpowder", "stick"],
+      "resumo": "A bruxa solta redstone, pó de glowstone e mais cinco itens úteis de poção. Dentro da cabana do pântano ela nasce sempre.",
+      "materiais": [["cobblestone", "bastante"], ["water_bucket", "vários"], ["hopper", "alguns"], ["chest", "1"], ["diamond_sword", "para o golpe final"]],
+      "passos": [
+        "Ache uma cabana de bruxa num pântano. As bruxas podem nascer em qualquer bloco de uma área de 7×7×9 em volta da cabana: do nível abaixo do chão a 2 blocos acima do telhado.",
+        "As bruxas geradas aí não somem sozinhas. Encha essa área de plataformas de chão sólido para ter mais pontos de nascimento.",
+        "Leve elas por canais de água até uma queda. A bruxa tem 26 de vida, então a queda precisa ser maior (29 blocos mata).",
+        "As bruxas soltam seus itens em qualquer morte. Quem faz a queda não precisa estar por perto."
+      ],
+      "dicas": [
+        "Cada bruxa solta de 4 a 8 pós de redstone e de 0 a 2 de cada outro item.",
+        "Cuidado com as poções que ela joga: leve leite e saia da linha de tiro."
+      ]
+    }
+  ]
+}

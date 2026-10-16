@@ -1,0 +1,144 @@
+{
+  "_leia": "Escrito à mão a partir da tabela de trocas da Minecraft Wiki (Java, versão 26.x). As trocas dos aldeões ficaram nos dados do jogo só a partir da 26.1, por isso não dá para ler do jar da 1.21.11. Linhas onde a wiki não mostra a quantidade foram deixadas sem número. Na 1.21.11 o Bibliotecário mestre vende etiqueta de nome (20 esmeraldas) em vez das velas.",
+  "niveis": ["Novato", "Aprendiz", "Qualificado", "Especialista", "Mestre"],
+  "dicas": [
+    "Valores da Minecraft Wiki, versão 26.x. As trocas mudam entre versões (o Bibliotecário mestre e o comerciante viajante mudaram na 26.1), então confira no jogo antes de juntar material.",
+    "Aldeão se especializa na estação de trabalho que fica perto dele. Quebre a estação e ponha de novo para ele trocar de profissão, enquanto você ainda não negociou com ele.",
+    "Bibliotecário: o preço do livro encantado vai de 5 a 64 esmeraldas conforme o encantamento. Quebre e reponha a estante com púlpito até sair o livro que você quer, antes da primeira troca.",
+    "Curar um aldeão zumbi (poção de Fraqueza e maçã dourada) deixa as trocas dele bem mais baratas. O efeito Herói da Vila também dá desconto.",
+    "Cada troca tem usos limitados. O aldeão repõe os usos até 2 vezes por dia, quando está perto da estação de trabalho.",
+    "Subir o nível do aldeão desbloqueia as trocas de cima: faça uma troca para ele subir de nível."
+  ],
+  "profissoes": [
+    {
+      "id": "armeiro", "pt": "Armeiro (armaduras)", "estacao": "blast_furnace",
+      "niveis": [
+        [ { "da": [["coal", "15"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "5"]], "recebe": ["iron_helmet", "1"], "usos": 12 }, { "da": [["emerald", "9"]], "recebe": ["iron_chestplate", "1"], "usos": 12 }, { "da": [["emerald", "7"]], "recebe": ["iron_leggings", "1"], "usos": 12 }, { "da": [["emerald", "4"]], "recebe": ["iron_boots", "1"], "usos": 12 } ],
+        [ { "da": [["iron_ingot", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "36"]], "recebe": ["bell", "1"], "usos": 12 }, { "da": [["emerald", "3"]], "recebe": ["chainmail_leggings", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["chainmail_boots", "1"], "usos": 12 } ],
+        [ { "da": [["lava_bucket", "1"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["diamond", "1"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["chainmail_helmet", "1"], "usos": 12 }, { "da": [["emerald", "4"]], "recebe": ["chainmail_chestplate", "1"], "usos": 12 }, { "da": [["emerald", "5"]], "recebe": ["shield", "1"], "usos": 12 } ],
+        [ { "da": [["emerald", "19 a 33"]], "recebe": ["diamond_leggings", "1"], "usos": 3, "nota": "encantada" }, { "da": [["emerald", "13 a 27"]], "recebe": ["diamond_boots", "1"], "usos": 3, "nota": "encantada" } ],
+        [ { "da": [["emerald", "13 a 27"]], "recebe": ["diamond_helmet", "1"], "usos": 3, "nota": "encantado" }, { "da": [["emerald", "21 a 35"]], "recebe": ["diamond_chestplate", "1"], "usos": 3, "nota": "encantado" } ]
+      ]
+    },
+    {
+      "id": "acougueiro", "pt": "Açougueiro", "estacao": "smoker",
+      "niveis": [
+        [ { "da": [["chicken", "14"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["rabbit", "4"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["porkchop", "7"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["rabbit_stew", "1"], "usos": 12 } ],
+        [ { "da": [["coal", "15"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["cooked_chicken", "8"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["cooked_porkchop", "5"], "usos": 16 } ],
+        [ { "da": [["beef", "10"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["mutton", "7"]], "recebe": ["emerald", "1"], "usos": 16 } ],
+        [ { "da": [["dried_kelp_block", "10"]], "recebe": ["emerald", "1"], "usos": 12 } ],
+        [ { "da": [["sweet_berries", "10"]], "recebe": ["emerald", "1"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "cartografo", "pt": "Cartógrafo", "estacao": "cartography_table",
+      "niveis": [
+        [ { "da": [["paper", "24"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "7"]], "recebe": ["map", "1"], "usos": 12 } ],
+        [ { "da": [["glass_pane", "11"]], "recebe": ["emerald", "1"], "usos": 12 }, { "texto": "Mapas de exploração (aldeia, monumento oceânico, mansão e outras estruturas): custam esmeraldas e uma bússola, e a estrutura muda conforme o nível do aldeão." } ],
+        [ { "da": [["compass", "1"]], "recebe": ["emerald", "1"], "usos": 12 } ],
+        [ { "da": [["emerald", "7"]], "recebe": ["item_frame", "1"], "usos": 12 }, { "da": [["emerald", "3"]], "recebe": ["white_banner", "1"], "usos": 12, "nota": "a cor depende do bioma" } ],
+        [ { "da": [["emerald", "8"]], "recebe": ["globe_banner_pattern", "1"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "clerigo", "pt": "Clérigo", "estacao": "brewing_stand",
+      "niveis": [
+        [ { "da": [["rotten_flesh", "32"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["redstone", "2"], "usos": 12 } ],
+        [ { "da": [["gold_ingot", "3"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["lapis_lazuli", "1"], "usos": 12 } ],
+        [ { "da": [["rabbit_foot", "2"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "4"]], "recebe": ["glowstone", "1"], "usos": 12 } ],
+        [ { "da": [["turtle_scute", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["glass_bottle", "9"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "5"]], "recebe": ["ender_pearl", "1"], "usos": 12 } ],
+        [ { "da": [["nether_wart", "22"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "3"]], "recebe": ["experience_bottle", "1"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "fazendeiro", "pt": "Agricultor", "estacao": "composter",
+      "niveis": [
+        [ { "da": [["wheat", "20"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["potato", "26"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["carrot", "22"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["beetroot", "15"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["bread", "6"], "usos": 16 } ],
+        [ { "da": [["pumpkin", "6"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["pumpkin_pie", "4"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["apple", "4"], "usos": 16 } ],
+        [ { "da": [["melon", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "3"]], "recebe": ["cookie", "18"], "usos": 12 } ],
+        [ { "da": [["emerald", "1"]], "recebe": ["suspicious_stew", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["cake", "1"], "usos": 12 } ],
+        [ { "da": [["emerald", "3"]], "recebe": ["golden_carrot", "3"], "usos": 12 }, { "da": [["emerald", "4"]], "recebe": ["glistering_melon_slice", "3"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "pescador", "pt": "Pescador", "estacao": "barrel",
+      "niveis": [
+        [ { "da": [["string", "20"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["coal", "10"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "3"]], "recebe": ["cod_bucket", "1"], "usos": 16 }, { "da": [["cod", "6"], ["emerald", "1"]], "recebe": ["cooked_cod", "6"], "usos": 16 } ],
+        [ { "da": [["cod", "15"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "2"]], "recebe": ["campfire", "1"], "usos": 12 }, { "da": [["salmon", "6"], ["emerald", "1"]], "recebe": ["cooked_salmon", "6"], "usos": 16 } ],
+        [ { "da": [["salmon", "13"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "8 a 22"]], "recebe": ["fishing_rod", "1"], "usos": 3, "nota": "encantada" } ],
+        [ { "da": [["tropical_fish", "6"]], "recebe": ["emerald", "1"], "usos": 12 } ],
+        [ { "da": [["pufferfish", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["oak_boat", "1"]], "recebe": ["emerald", "1"], "usos": 12, "nota": "a madeira do barco depende do bioma" } ]
+      ]
+    },
+    {
+      "id": "flecheiro", "pt": "Flecheiro", "estacao": "fletching_table",
+      "niveis": [
+        [ { "da": [["stick", "32"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["arrow", "16"], "usos": 12 }, { "da": [["gravel", "10"], ["emerald", "1"]], "recebe": ["flint", "10"], "usos": 12 } ],
+        [ { "da": [["flint", "26"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "2"]], "recebe": ["bow", "1"], "usos": 12 } ],
+        [ { "da": [["string", "14"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "3"]], "recebe": ["crossbow", "1"], "usos": 12 } ],
+        [ { "da": [["feather", "24"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "7 a 21"]], "recebe": ["bow", "1"], "usos": 3, "nota": "encantado" } ],
+        [ { "da": [["tripwire_hook", "8"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "8 a 22"]], "recebe": ["crossbow", "1"], "usos": 3, "nota": "encantada" }, { "da": [["emerald", "2"], ["arrow", "5"]], "recebe": ["tipped_arrow", "5"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "coureiro", "pt": "Coureiro", "estacao": "cauldron",
+      "niveis": [
+        [ { "da": [["leather", "6"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "3"]], "recebe": ["leather_leggings", "1"], "usos": 12, "nota": "cor aleatória" }, { "da": [["emerald", "7"]], "recebe": ["leather_chestplate", "1"], "usos": 12, "nota": "cor aleatória" } ],
+        [ { "da": [["flint", "26"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "5"]], "recebe": ["leather_helmet", "1"], "usos": 12, "nota": "cor aleatória" }, { "da": [["emerald", "4"]], "recebe": ["leather_boots", "1"], "usos": 12, "nota": "cor aleatória" } ],
+        [ { "da": [["rabbit_hide", "9"]], "recebe": ["emerald", "1"], "usos": 12 } ],
+        [ { "da": [["turtle_scute", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "6"]], "recebe": ["leather_horse_armor", "1"], "usos": 12, "nota": "cor aleatória" } ],
+        [ { "da": [["emerald", "6"]], "recebe": ["saddle", "1"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "bibliotecario", "pt": "Bibliotecário", "estacao": "lectern",
+      "niveis": [
+        [ { "da": [["paper", "24"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "9"]], "recebe": ["bookshelf", "1"], "usos": 12 }, { "da": [["emerald", "5 a 64"], ["book", "1"]], "recebe": ["enchanted_book", "1"], "usos": 12 } ],
+        [ { "da": [["book", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["lantern", "1"], "usos": 12 }, { "da": [["emerald", "5 a 64"], ["book", "1"]], "recebe": ["enchanted_book", "1"], "usos": 12 } ],
+        [ { "da": [["ink_sac", "5"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["glass", "4"], "usos": 12 }, { "da": [["emerald", "5 a 64"], ["book", "1"]], "recebe": ["enchanted_book", "1"], "usos": 12 } ],
+        [ { "da": [["writable_book", "2"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "4"]], "recebe": ["compass", "1"], "usos": 12 }, { "da": [["emerald", "5"]], "recebe": ["clock", "1"], "usos": 12 }, { "da": [["emerald", "5 a 64"], ["book", "1"]], "recebe": ["enchanted_book", "1"], "usos": 12 } ],
+        [ { "da": [["emerald", "3"]], "recebe": ["red_candle", "1"], "usos": 12 }, { "da": [["emerald", "3"]], "recebe": ["yellow_candle", "1"], "usos": 12 }, { "texto": "Na versão 1.21.11 o mestre vende a etiqueta de nome (20 esmeraldas) em vez das velas." } ]
+      ]
+    },
+    {
+      "id": "pedreiro", "pt": "Pedreiro", "estacao": "stonecutter",
+      "niveis": [
+        [ { "da": [["clay_ball", "10"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["brick", "10"], "usos": 16 } ],
+        [ { "da": [["stone", "20"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["chiseled_stone_bricks", "4"], "usos": 16 } ],
+        [ { "da": [["granite", "16"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["andesite", "16"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["diorite", "16"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["dripstone_block", "4"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["polished_andesite", "4"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["polished_diorite", "4"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["polished_granite", "4"], "usos": 16 } ],
+        [ { "da": [["quartz", "12"]], "recebe": ["emerald", "1"], "usos": 12 }, { "texto": "Também vende terracota colorida e terracota esmaltada, de qualquer cor, por esmeraldas." } ],
+        [ { "da": [["emerald", "1"]], "recebe": ["quartz_pillar", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["quartz_block", "1"], "usos": 12 } ]
+      ]
+    },
+    {
+      "id": "pastor", "pt": "Pastor", "estacao": "loom",
+      "niveis": [
+        [ { "da": [["white_wool", "18"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["brown_wool", "18"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["black_wool", "18"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["gray_wool", "18"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "2"]], "recebe": ["shears", "1"], "usos": 12 } ],
+        [ { "da": [["white_dye", "12"], ["gray_dye", "12"], ["black_dye", "12"], ["light_blue_dye", "12"], ["lime_dye", "12"]], "alt": true, "recebe": ["emerald", "1"], "usos": 16 }, { "texto": "Também vende lã e tapete de qualquer cor por esmeraldas." } ],
+        [ { "da": [["yellow_dye", "12"], ["light_gray_dye", "12"], ["orange_dye", "12"], ["red_dye", "12"], ["pink_dye", "12"]], "alt": true, "recebe": ["emerald", "1"], "usos": 16 } ],
+        [ { "da": [["brown_dye", "12"], ["purple_dye", "12"], ["blue_dye", "12"], ["green_dye", "12"], ["magenta_dye", "12"], ["cyan_dye", "12"]], "alt": true, "recebe": ["emerald", "1"], "usos": 16 } ],
+        [ { "da": [["emerald", "2"]], "recebe": ["painting", "3"], "usos": 12 }, { "texto": "Também vende cama e estandarte de qualquer cor por esmeraldas." } ]
+      ]
+    },
+    {
+      "id": "ferramenteiro", "pt": "Ferramenteiro", "estacao": "smithing_table",
+      "niveis": [
+        [ { "da": [["coal", "15"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "1"]], "recebe": ["stone_axe", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["stone_shovel", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["stone_pickaxe", "1"], "usos": 12 }, { "da": [["emerald", "1"]], "recebe": ["stone_hoe", "1"], "usos": 12 } ],
+        [ { "da": [["iron_ingot", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "36"]], "recebe": ["bell", "1"], "usos": 12 } ],
+        [ { "da": [["flint", "30"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "6 a 20"]], "recebe": ["iron_axe", "1"], "usos": 3, "nota": "encantado" }, { "da": [["emerald", "7 a 21"]], "recebe": ["iron_shovel", "1"], "usos": 3, "nota": "encantada" }, { "da": [["emerald", "8 a 22"]], "recebe": ["iron_pickaxe", "1"], "usos": 3, "nota": "encantada" }, { "da": [["emerald", "4"]], "recebe": ["diamond_hoe", "1"], "usos": 3 } ],
+        [ { "da": [["diamond", "1"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "17 a 31"]], "recebe": ["diamond_axe", "1"], "usos": 3, "nota": "encantado" }, { "da": [["emerald", "10 a 24"]], "recebe": ["diamond_shovel", "1"], "usos": 3, "nota": "encantada" } ],
+        [ { "da": [["emerald", "18 a 32"]], "recebe": ["diamond_pickaxe", "1"], "usos": 3, "nota": "encantada" } ]
+      ]
+    },
+    {
+      "id": "armeiro-armas", "pt": "Armeiro (armas)", "estacao": "grindstone",
+      "niveis": [
+        [ { "da": [["coal", "15"]], "recebe": ["emerald", "1"], "usos": 16 }, { "da": [["emerald", "3"]], "recebe": ["iron_axe", "1"], "usos": 12 }, { "da": [["emerald", "7 a 21"]], "recebe": ["iron_sword", "1"], "usos": 3, "nota": "encantada" } ],
+        [ { "da": [["iron_ingot", "4"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "36"]], "recebe": ["bell", "1"], "usos": 12 } ],
+        [ { "da": [["flint", "24"]], "recebe": ["emerald", "1"], "usos": 12 } ],
+        [ { "da": [["diamond", "1"]], "recebe": ["emerald", "1"], "usos": 12 }, { "da": [["emerald", "17 a 31"]], "recebe": ["diamond_axe", "1"], "usos": 3, "nota": "encantado" } ],
+        [ { "da": [["emerald", "13 a 27"]], "recebe": ["diamond_sword", "1"], "usos": 3, "nota": "encantada" } ]
+      ]
+    }
+  ]
+}

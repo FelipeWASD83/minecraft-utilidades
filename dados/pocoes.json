@@ -1,0 +1,40 @@
+{
+  "_leia": "Escrito à mão a partir da Minecraft Wiki (Brewing), Java 1.21. A fabricação de poções não está nos arquivos do jogo. Nomes em português vêm do idioma do jogo. Durações em m:ss; arremessável dura igual à poção de beber e a prolongada dura 1/4.",
+  "bases": [
+    { "id": "awkward", "pt": "Poção Estranha", "ingr": "nether_wart", "nota": "Ponto de partida de quase todas as poções." },
+    { "id": "mundane", "pt": "Poção Comum", "ingr": "redstone", "nota": "Não serve para nada, só para ocupar o frasco." },
+    { "id": "thick", "pt": "Poção Espessa", "ingr": "glowstone_dust", "nota": "Também não serve para nada." }
+  ],
+  "modificadores": [
+    { "id": "redstone", "item": "redstone", "pt": "Pó de redstone", "faz": "Aumenta a duração. Não vale para poção instantânea nem de nível II." },
+    { "id": "glowstone_dust", "item": "glowstone_dust", "pt": "Pó de glowstone", "faz": "Sobe para o nível II, com duração menor. Não vale sobre poção já estendida." },
+    { "id": "fermented_spider_eye", "item": "fermented_spider_eye", "pt": "Olho de aranha fermentado", "faz": "Corrompe a poção: troca o efeito pelo oposto (Visão Noturna vira Invisibilidade, Agilidade e Salto viram Lentidão, Cura e Veneno viram Dano)." },
+    { "id": "gunpowder", "item": "gunpowder", "pt": "Pólvora", "faz": "Vira poção arremessável, que afeta quem estiver perto de onde cair. A duração é a mesma da poção de beber." },
+    { "id": "dragon_breath", "item": "dragon_breath", "pt": "Bafo do Dragão", "faz": "Sobre uma arremessável, vira prolongada: deixa uma nuvem no chão. A duração é 1/4 da poção de beber." }
+  ],
+  "pocoes": [
+    { "id": "healing", "pt": "Poção de Cura", "efeito": "Recupera vida na hora.", "tipo": "bom", "ingr": "glistering_melon_slice", "dur": null, "n2": { "nome": "Cura II", "dur": null } },
+    { "id": "regeneration", "pt": "Poção de Regeneração", "efeito": "Recupera vida aos poucos.", "tipo": "bom", "ingr": "ghast_tear", "dur": "0:45", "ext": "1:30", "n2": { "nome": "Regeneração II", "dur": "0:22" } },
+    { "id": "fire_resistance", "pt": "Poção de Resistência ao Fogo", "efeito": "Imune a fogo e lava.", "tipo": "bom", "ingr": "magma_cream", "dur": "3:00", "ext": "8:00" },
+    { "id": "strength", "pt": "Poção de Força", "efeito": "Mais dano corpo a corpo.", "tipo": "bom", "ingr": "blaze_powder", "dur": "3:00", "ext": "8:00", "n2": { "nome": "Força II", "dur": "1:30" } },
+    { "id": "swiftness", "pt": "Poção de Agilidade", "efeito": "Anda mais rápido.", "tipo": "bom", "ingr": "sugar", "dur": "3:00", "ext": "8:00", "n2": { "nome": "Agilidade II", "dur": "1:30" } },
+    { "id": "leaping", "pt": "Poção de Salto", "efeito": "Pula mais alto.", "tipo": "bom", "ingr": "rabbit_foot", "dur": "3:00", "ext": "8:00", "n2": { "nome": "Salto II", "dur": "1:30" } },
+    { "id": "night_vision", "pt": "Poção de Visão Noturna", "efeito": "Enxerga no escuro.", "tipo": "bom", "ingr": "golden_carrot", "dur": "3:00", "ext": "8:00" },
+    { "id": "water_breathing", "pt": "Poção de Respiração Aquática", "efeito": "Respira debaixo d'água sem gastar ar.", "tipo": "bom", "ingr": "pufferfish", "dur": "3:00", "ext": "8:00" },
+    { "id": "slow_falling", "pt": "Poção de Queda Lenta", "efeito": "Cai devagar e sem dano de queda.", "tipo": "bom", "ingr": "phantom_membrane", "dur": "1:30", "ext": "4:00" },
+    { "id": "turtle_master", "pt": "Poção do Mestre-Tartaruga", "efeito": "Lentidão IV e Resistência III ao mesmo tempo: você quase não se move, mas leva muito menos dano.", "tipo": "neutro", "ingr": "turtle_helmet", "dur": "0:20", "ext": "0:40", "n2": { "nome": "Lentidão VI e Resistência IV", "dur": "0:20" } },
+    { "id": "poison", "pt": "Poção de Veneno", "efeito": "Tira vida aos poucos, mas nunca mata: para com meio coração.", "tipo": "ruim", "ingr": "spider_eye", "dur": "0:45", "ext": "1:30", "n2": { "nome": "Veneno II", "dur": "0:21" } },
+    { "id": "weakness", "pt": "Poção de Fraqueza", "efeito": "Menos dano corpo a corpo.", "tipo": "ruim", "agua": true, "ingr": "fermented_spider_eye", "dur": "1:30", "ext": "4:00", "nota": "É a única que sai de um frasco de água, sem Poção Estranha: frasco de água + olho de aranha fermentado." },
+    { "id": "invisibility", "pt": "Poção de Invisibilidade", "efeito": "Ninguém vê você de longe; armadura e itens na mão continuam aparecendo.", "tipo": "bom", "de": ["night_vision"], "dur": "3:00", "ext": "8:00" },
+    { "id": "slowness", "pt": "Poção de Lentidão", "efeito": "Anda mais devagar.", "tipo": "ruim", "de": ["swiftness", "leaping"], "dur": "1:30", "ext": "4:00", "n2": { "nome": "Lentidão IV", "dur": "0:20" } },
+    { "id": "harming", "pt": "Poção de Dano", "efeito": "Causa dano na hora (cura mortos-vivos).", "tipo": "ruim", "de": ["healing", "poison"], "dur": null, "n2": { "nome": "Dano II", "dur": null } },
+    { "id": "wind_charged", "pt": "Poção de Ventania", "efeito": "Libera uma rajada de vento quando a vítima morre.", "tipo": "neutro", "ingr": "breeze_rod", "dur": "3:00", "nota": "Efeito novo da 1.21. Não dá para estender nem subir de nível." },
+    { "id": "weaving", "pt": "Poção de Tecitura", "efeito": "Cria teias quando a vítima morre.", "tipo": "neutro", "ingr": "cobweb", "dur": "3:00", "nota": "Efeito novo da 1.21. Não dá para estender nem subir de nível." },
+    { "id": "oozing", "pt": "Poção Pegajosa", "efeito": "Solta gosmas quando a vítima morre.", "tipo": "neutro", "ingr": "slime_block", "dur": "3:00", "nota": "Efeito novo da 1.21. Não dá para estender nem subir de nível." },
+    { "id": "infested", "pt": "Poção de Infestação", "efeito": "Chance de soltar traças quando a vítima leva dano.", "tipo": "neutro", "ingr": "stone", "dur": "3:00", "nota": "Efeito novo da 1.21. Não dá para estender nem subir de nível." }
+  ],
+  "suporte": {
+    "combustivel": "blaze_powder",
+    "texto": "O suporte de poções usa pó de blaze como combustível: cada pó rende 20 preparos. Cada preparo leva 20 segundos e trabalha até 3 frascos ao mesmo tempo, com o ingrediente em cima."
+  }
+}
