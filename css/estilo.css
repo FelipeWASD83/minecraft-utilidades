@@ -1,0 +1,445 @@
+/* ==========================================================================
+   Bancada · estilo
+   Papel quente, tinta escura e um laranja de cobre como única cor de ação.
+   Os quadrados (slots) copiam o inventário do jogo: é o que o olho já conhece.
+   ========================================================================== */
+
+:root {
+  /* --- cores da página ---------------------------------------------------- */
+  --papel: #f1ebdc;          /* fundo do miolo */
+  --papel-2: #e8e0cc;        /* faixas e campos sobre o papel */
+  --tinta: #171c19;          /* topo e rodapé */
+  --tinta-2: #262d28;        /* bordas e botões sobre a tinta */
+  --txt: #1d221e;            /* texto forte */
+  --txt-2: #565c52;          /* texto de apoio */
+  --txt-3: #656b5e;          /* metadados */
+  --linha: #d3cab2;          /* divisores finos */
+  --linha-forte: #b4a98c;
+  --acento: #b8501a;         /* cobre: seleção, botão principal */
+  --acento-esc: #913c10;
+  --acento-fraco: #f2d9c6;
+  --erro: #9b3524;
+
+  /* --- cores do inventário do jogo ---------------------------------------- */
+  --gui: #c6c6c6;            /* fundo cinza das janelas */
+  --slot: #8b8b8b;           /* fundo de cada quadrado */
+  --slot-sombra: #373737;    /* borda de cima e da esquerda (afundado) */
+  --slot-luz: #ffffff;       /* borda de baixo e da direita */
+
+  /* --- espaçamento (4/8/12/16/24/32/48) ------------------------------------ */
+  --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px; --e5: 24px; --e6: 32px; --e7: 48px;
+
+  /* --- tipografia ----------------------------------------------------------- */
+  --fonte: "Schibsted Grotesk", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --t-rotulo: 11px;
+  --t-pequeno: 13px;
+  --t-corpo: 15px;
+  --t-titulo: 18px;
+  --t-marca: 22px;
+
+  /* --- forma e movimento ------------------------------------------------------ */
+  --raio: 4px;
+  --rapido: 150ms;
+  --normal: 300ms;
+
+  /* --- tamanhos da mesa ------------------------------------------------------ */
+  --slot-mesa: clamp(72px, 5vw, 84px);  /* quadrado da mesa de trabalho */
+  --ic-mesa: 64px;           /* ícone dentro dele (a folha tem 64 px, então 1:1) */
+  --topo-h: 56px;
+  --rodape-h: 40px;
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--txt);
+  font: 400 var(--t-corpo)/1.45 var(--fonte);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.rotulo {
+  font: 500 var(--t-rotulo)/1.3 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--txt-3);
+  margin: 0;
+}
+
+kbd {
+  font: 500 11px var(--mono);
+  padding: 1px 5px;
+  border: 1px solid var(--linha-forte);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  background: var(--papel-2);
+}
+
+/* ---------- ícone: um recorte da folha de sprites ---------- */
+.ic {
+  --s: 32px;
+  display: inline-block;
+  flex: none;
+  width: var(--s);
+  height: var(--s);
+  background: url("../img/itens.png") no-repeat;
+  background-size: calc(var(--s) * var(--cols, 40)) auto;
+  background-position: calc(var(--s) * var(--c, 0) * -1) calc(var(--s) * var(--r, 0) * -1);
+  image-rendering: pixelated;
+}
+.ic:not([style]) { visibility: hidden; }
+
+/* ---------- topo ---------- */
+.topo {
+  height: var(--topo-h);
+  background: var(--tinta);
+  color: #f3eee2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e4);
+  padding: 0 var(--e5);
+  flex: none;
+}
+.marca { display: flex; align-items: center; gap: var(--e3); color: inherit; text-decoration: none; }
+.marca-grade rect { fill: #4a5249; }
+.marca-grade rect.aceso { fill: var(--acento); }
+.marca-nome { font: 700 var(--t-marca)/1 var(--fonte); letter-spacing: -.02em; }
+.topo-meta { color: #9aa093; }
+
+/* ---------- miolo: três painéis separados por linha fina ---------- */
+.app {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(420px, 1.15fr) minmax(340px, 1fr) minmax(420px, 1.35fr);
+  height: calc(100dvh - var(--topo-h) - var(--rodape-h));
+}
+
+.painel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--e5) var(--e5) var(--e4);
+  border-right: 1px solid var(--linha);
+}
+.painel:last-child { border-right: 0; }
+
+.painel-cab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e3);
+  min-height: 32px;
+  margin-bottom: var(--e4);
+}
+.painel-cab h2 { margin: 0; font: 600 var(--t-titulo)/1.2 var(--fonte); letter-spacing: -.01em; }
+
+.btn {
+  font: 500 var(--t-pequeno)/1 var(--fonte);
+  padding: 8px 12px;
+  border: 1px solid var(--linha-forte);
+  border-radius: var(--raio);
+  background: transparent;
+  transition: background var(--rapido), border-color var(--rapido), color var(--rapido);
+}
+.btn:hover:not(:disabled) { background: var(--papel-2); border-color: var(--txt-3); }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn.principal { background: var(--acento); border-color: var(--acento); color: #fff; }
+.btn.principal:hover:not(:disabled) { background: var(--acento-esc); border-color: var(--acento-esc); }
+
+/* ---------- o quadrado do inventário ---------- */
+.slot {
+  --lado: var(--slot-mesa);
+  position: relative;
+  width: var(--lado);
+  height: var(--lado);
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--slot);
+  border: 2px solid;
+  border-color: var(--slot-sombra) var(--slot-luz) var(--slot-luz) var(--slot-sombra);
+  border-radius: 0;
+}
+.slot:hover:not(:disabled)::after,
+.slot.alvo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, .42);
+  pointer-events: none;
+}
+.slot:disabled { cursor: default; }
+.slot.vazio:hover::after { display: none; }
+.slot .ic { --s: var(--ic-mesa); }
+.slot .n {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  font: 700 17px/1 var(--mono);
+  color: #fff;
+  text-shadow: 2px 2px 0 #3f3f3f;
+  pointer-events: none;
+}
+.slot.res { --lado: calc(var(--slot-mesa) * 1.22); }
+.slot.res .ic { --s: var(--ic-mesa); }
+
+/* ---------- painel da mesa ---------- */
+.gui {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: var(--e4);
+  flex-wrap: wrap;
+  padding: var(--e4);
+  background: var(--gui);
+  border: 2px solid;
+  border-color: var(--slot-luz) #555 #555 var(--slot-luz);
+  box-shadow: 0 0 0 1px #000;
+}
+.mesa-grade {
+  display: grid;
+  grid-template-columns: repeat(3, var(--slot-mesa));
+}
+.seta-gui { fill: var(--slot); flex: none; }
+
+.mao {
+  display: flex;
+  align-items: center;
+  gap: var(--e3);
+  margin-bottom: var(--e3);
+  padding: var(--e2) var(--e3);
+  background: var(--acento-fraco);
+  border-radius: var(--raio);
+  align-self: flex-start;
+}
+.mao[hidden] { display: none; }
+.mao .rotulo { color: var(--txt-2); }
+.mao-item { display: flex; align-items: center; gap: var(--e2); font-size: var(--t-pequeno); }
+.mao-item .ic { --s: 24px; }
+.btn-x {
+  border: 0; background: transparent; font-size: 20px; line-height: 1;
+  padding: 0 var(--e1); color: var(--acento-esc);
+}
+
+.saida { min-height: 48px; margin: var(--e4) 0 0; font-size: var(--t-corpo); }
+.saida b { font-weight: 600; }
+.saida .nota { color: var(--txt-2); }
+.saida.vazia { color: var(--txt-2); }
+
+.dicas {
+  margin: auto 0 0;
+  padding: var(--e4) 0 0;
+  list-style: none;
+  border-top: 1px solid var(--linha);
+  font-size: var(--t-pequeno);
+  color: var(--txt-2);
+  display: grid;
+  gap: var(--e2);
+}
+
+/* ---------- painel "como fazer" ---------- */
+.rec-corpo { flex: 1; min-height: 0; overflow-y: auto; margin-right: calc(var(--e2) * -1); padding-right: var(--e2); }
+.rec-intro { color: var(--txt-2); max-width: 36ch; margin: 0; }
+
+.ficha {
+  display: flex;
+  align-items: center;
+  gap: var(--e4);
+  padding-bottom: var(--e4);
+  margin-bottom: var(--e4);
+  border-bottom: 1px solid var(--linha);
+}
+.ficha .slot { --lado: 64px; flex: none; }
+.ficha .slot .ic { --s: 48px; }
+.ficha h3 { margin: 0; font: 600 20px/1.2 var(--fonte); letter-spacing: -.01em; }
+.ficha .sub { margin: var(--e1) 0 0; font-size: var(--t-pequeno); color: var(--txt-2); }
+.ficha .id { margin: var(--e1) 0 0; }
+
+.sem-receita {
+  margin: 0;
+  padding: var(--e4);
+  background: var(--papel-2);
+  border-radius: var(--raio);
+  color: var(--txt-2);
+  font-size: var(--t-pequeno);
+}
+
+.cartao {
+  --lado: 44px;
+  padding: var(--e4) 0;
+  border-bottom: 1px solid var(--linha);
+}
+.cartao:last-child { border-bottom: 0; }
+.cartao-cab { display: flex; align-items: center; justify-content: space-between; gap: var(--e3); margin-bottom: var(--e3); }
+.cartao-corpo { display: flex; align-items: center; gap: var(--e4); }
+.mini-grade { display: grid; grid-template-columns: repeat(var(--colunas, 3), var(--lado)); }
+.cartao .slot { --lado: 44px; }
+.cartao .slot .ic { --s: 32px; }
+.cartao .slot .n { font-size: 12px; right: 2px; text-shadow: 1px 1px 0 #3f3f3f; }
+.cartao .slot.vazio { background: #a9a9a9; }
+.cartao .seta { font: 500 22px/1 var(--mono); color: var(--txt-3); }
+.cartao .desc { margin: var(--e3) 0 0; font-size: var(--t-pequeno); color: var(--txt-2); max-width: 52ch; }
+
+/* ---------- painel dos itens ---------- */
+.lista { padding-bottom: 0; }
+.busca input {
+  width: 100%;
+  font: 400 var(--t-corpo)/1 var(--fonte);
+  padding: 12px 16px;
+  border: 1px solid var(--linha-forte);
+  border-radius: var(--raio);
+  background: var(--papel-2);
+  color: var(--txt);
+}
+.busca input::placeholder { color: var(--txt-2); }
+.busca input:focus { outline: 2px solid var(--acento); outline-offset: 0; background: #fbf8f0; }
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--e2); margin: var(--e3) 0; }
+.chip {
+  font: 500 var(--t-pequeno)/1 var(--fonte);
+  padding: 8px 12px;
+  border: 1px solid var(--linha-forte);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--txt-2);
+  transition: background var(--rapido), color var(--rapido), border-color var(--rapido);
+}
+.chip:hover { border-color: var(--txt-3); color: var(--txt); }
+.chip[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: #fff; }
+.chip.sep { margin-left: var(--e2); }
+
+.grade-itens[hidden] { display: none; }
+.grade-itens {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+  grid-auto-rows: 46px;
+  gap: 2px;
+  align-content: start;
+  padding: var(--e2);
+  margin: 0 calc(var(--e5) * -1);
+  background: var(--gui);
+  border-top: 1px solid #555;
+  contain: content;
+}
+.item {
+  position: relative;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--slot);
+  border: 2px solid;
+  border-color: var(--slot-sombra) var(--slot-luz) var(--slot-luz) var(--slot-sombra);
+  border-radius: 0;
+}
+.item[hidden] { display: none; }
+.item:hover::after {
+  content: ""; position: absolute; inset: 0; background: rgba(255, 255, 255, .42); pointer-events: none;
+}
+.item[aria-pressed="true"] { outline: 3px solid var(--acento); outline-offset: -3px; z-index: 1; }
+.sem-itens { margin: var(--e5) 0; color: var(--txt-2); }
+.sem-itens[hidden] { display: none; }
+
+/* ---------- dica flutuante e item na mão ---------- */
+.dica {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  max-width: 280px;
+  padding: 8px 12px;
+  background: var(--tinta);
+  color: #fff;
+  border: 1px solid #4b5a4f;
+  border-radius: var(--raio);
+  display: grid;
+  gap: 2px;
+}
+.dica[hidden] { display: none; }
+.dica b { font: 600 var(--t-pequeno)/1.3 var(--fonte); }
+.dica span { font: 400 11px/1.3 var(--mono); color: #a4ab9c; }
+
+.fantasma {
+  --s: 40px;
+  position: fixed;
+  z-index: 15;
+  left: 0; top: 0;
+  pointer-events: none;
+  filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, .35));
+}
+.fantasma[hidden] { display: none; }
+
+/* ---------- rodapé (tinta, como o topo: o miolo claro fica no meio) ---------- */
+.rodape {
+  height: var(--rodape-h);
+  flex: none;
+  background: var(--tinta);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--e5);
+}
+.rodape .rotulo { color: #8f968a; text-transform: none; letter-spacing: .02em; font-size: 11px; }
+
+/* ---------- telas ---------- */
+
+/* ultrawide e monitor grande */
+@media (min-width: 2400px) {
+  :root { --slot-mesa: 104px; --ic-mesa: 64px; }
+  .app { grid-template-columns: 680px 620px minmax(0, 1fr); }
+  .painel { padding-left: var(--e6); padding-right: var(--e6); }
+  .grade-itens { margin: 0 calc(var(--e6) * -1); grid-template-columns: repeat(auto-fill, minmax(54px, 1fr)); grid-auto-rows: 54px; }
+  .item .ic { --s: 32px; }
+}
+
+/* monitor em pé e janela estreita: mesa e receitas em cima, itens embaixo */
+@media (max-width: 1180px) {
+  .app {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .painel.lista { grid-column: 1 / -1; border-right: 0; border-top: 1px solid var(--linha); }
+  .painel.mesa, .painel.receitas { max-height: 56dvh; }
+  .painel.mesa { overflow-y: auto; }
+  .dicas { margin-top: var(--e4); }
+  .dicas li:not(:first-child) { display: none; }
+}
+
+/* celular: tudo empilhado, a página rola */
+@media (max-width: 760px) {
+  :root { --slot-mesa: 62px; --ic-mesa: 48px; --rodape-h: auto; }
+  .seta-gui { width: 30px; height: 20px; }
+  body { display: block; }
+  .topo { padding: 0 var(--e4); }
+  .topo-meta { display: none; }
+  .app { display: block; height: auto; }
+  .painel { padding: var(--e4); border-right: 0; border-bottom: 1px solid var(--linha); }
+  .painel.mesa, .painel.receitas { max-height: none; }
+  .rec-corpo { overflow: visible; margin-right: 0; padding-right: 0; }
+  .grade-itens { max-height: 70dvh; margin: 0 calc(var(--e4) * -1); }
+  .rodape { padding: var(--e3) var(--e4); height: auto; }
+  .gui { gap: var(--e3); }
+  .slot .n { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
